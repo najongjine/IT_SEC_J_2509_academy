@@ -1,0 +1,20 @@
+1. Git에 회원가입 했어요
+https://github.com
+왠만하면 구글계정으로 회원가입 해야
+나중에 비번찾기 같은거 수월해요
+
+2. 구글에서 git scm
+https://git-scm.com/downloads
+윈도우 버전 받아서 next 눌러서 설치했어요
+그런데, 이걸 그냥 콘솔에서 사용하려면
+명령어 35가지를 다 터득해야되서 어려워요
+
+3. vs code 를 설치 했어요
+https://code.visualstudio.com/download
+윈도우 버전 다운후, next 눌러서 설치
+코딩 IDE(편집기)를 설치했어요.
+이걸로 웹, 앱, 인공지능, GIT 다 할수 있어요
+(typescript, python. 예외 c#)
+
+CTRL + J 터미널 여는 명령어
+왼쪽 shift + Ins    붙여넣기
