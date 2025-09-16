@@ -1,0 +1,13 @@
+git config --global user.name "내유저이름"
+- git 이라는 기능에서(우리가 설치한 git scm) config(설정)을 
+--global(컴퓨터 전역설정)로 조정해주겠다
+user 라는 객체에 name 이라는 속성에 "내유저이름을" 저장해 주겠다
+
+git config --global user.email "내이매일"
+
+이걸 script 명령어라고 합니다.
+
+파이썬, 노드 실행할때도 스크립트 명령어로 합니다
+
+스크립트 명령어는 마우스나 버튼 클릭하는것보다 많이 어렵지만,
+강력한 기능을 내포하고 있습니다.
