@@ -54,7 +54,15 @@ git config --global user.email "내이매일"
 https://nodejs.org/ko/download
 - 자바 스크립트 라이브러리(언어 설치)
 
+뭐뭐뭐.js 라는 파일을 만들었어요
+뭐뭐.txt 이건 메모장 전용!
+.js 는 자바스크립트 전용!
+즉, 자바스크립트 코드만 되요
 
+test1.js 라는 파일을 만들고,
+test1.js 가 있는 경로에서 터미널을 열고
+node test1.js 했더니 뭔가 실행이 됬어요
+이뜻은, 언어가 정상적으로 작동한다는 거에요
 
 
 
