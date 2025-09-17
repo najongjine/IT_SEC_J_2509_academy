@@ -5,8 +5,8 @@ let b = 2;
 let c = a + b;
 
 a + 3;
-console.log(`a:${a}`);
+console.log(`a:${a}`); // 1
 a = a + 3;
-console.log(`a:${a}`);
+console.log(`a:${a}`); // 4
 
 

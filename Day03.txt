@@ -21,3 +21,10 @@ let a =1;
 
 자바 스크립트에서
 let 라는 키워드가 나오면, 변수를 선언 하겠다는 뜻입니다
+
+console.log() 흑백 화면에 출력하라
+console.log(``) back tick 은 string interpolation
+
+
+프로그래밍에서 = 기호는 수학의 equal 이라는 기호가 
+아니에요. 프로그래밍에선 대입(save) 연산자 입니다.
