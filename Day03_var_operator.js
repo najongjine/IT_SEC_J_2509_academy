@@ -38,9 +38,15 @@ let num1 = 3;
 let num2 = 2;
 let result = num1 / num2;
 
-
+//            0      1   2  3
 let array = [num1, num2, 3, 4];
 console.log(`array 서랍의 첫번째 array[0] : ${array[0]}`);
+
+/*
+옛날 노드는 에러로 나와요
+최신 노드는 undefined 나오네요
+ */
+console.log(`array 서랍의 첫번째 array[99] : ${array[99]}`);
 
 
 
