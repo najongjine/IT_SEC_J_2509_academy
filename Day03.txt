@@ -28,3 +28,6 @@ console.log(``) back tick 은 string interpolation
 
 프로그래밍에서 = 기호는 수학의 equal 이라는 기호가 
 아니에요. 프로그래밍에선 대입(save) 연산자 입니다.
+
+a + 3; //4 가 나오긴 했는데.. 저장을 안함
+a = a + 3; // a 의 값과 3을 더한다음, 다시 a에 저장하라
