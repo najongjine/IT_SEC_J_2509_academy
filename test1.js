@@ -38,7 +38,8 @@ let num1 = 3;
 let num2 = 2;
 let result = num1 / num2;
 
-let 비디오 = "c/mydocument/a.mp4";
+
+let array = [num1, num2, 3, 4];
 
 
 
