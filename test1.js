@@ -1,1 +1,1 @@
-console.assert(false);
+let a = 1;
