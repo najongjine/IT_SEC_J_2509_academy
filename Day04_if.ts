@@ -1,6 +1,7 @@
-let a = 1;
-if (a > 0) {
-    console.log(`a 는 0보다 큽니다`);
+let user_input = 1234;
+let door_password = 1234;
+if (user_input == door_password) {
+    console.log(`문을 열겠습니다`);
 } else {
-    console.log(`a 는 0보다 작습니다`)
+    console.log(`비밀번호가 틀렸습니다`);
 }
