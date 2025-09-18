@@ -15,4 +15,17 @@ let sum:number = 1+"2";
 이런걸 막아줘요
  */
 
+//              0  1  2
+//let array1 = [1, 2, 3];
+let array1: number[] = [1, 2, 3];
+
+// 서랍번호 0번의 값을 5로 바꿔주세요
+// 힌트: =
+array1[0] = 5;
+array1 = [5];
+console.log(`array1: ${array1}`);
+
+let jsObject = { a: 1, b: 2 };
+console.log(`jsObject: ${jsObject}`);
+
 
