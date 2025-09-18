@@ -1,4 +1,4 @@
-//npx ts-node --esm Day04.ts
+//node Day04.ts
 
 let a = 1;
 a = 3;
