@@ -1,3 +1,7 @@
 Typescript
 
 npm install -g ts-node typescript
+npm 은 nodejs(자바스크립트, 타입스크립트 프레임워크)
+계열에 모듈들을 설치해주는 명령어에요
+저 명령어로 typescrtipt랑, typescript를 실행해주는
+기능을 설치 한거에요
