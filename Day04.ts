@@ -26,6 +26,11 @@ array1 = [5];
 console.log(`array1: ${array1}`);
 
 let jsObject = { a: 1, b: 2 };
-console.log(`jsObject: ${jsObject}`);
+console.log(`jsObject: `, jsObject);
+
+// 지금 이거 해독하지 마세요
+let 내쇼핑몰 = [{ "제품": "멍멍이", "가격": "500" }
+    , { "제품": "타이거", "가격": "5000" }
+]
 
 
