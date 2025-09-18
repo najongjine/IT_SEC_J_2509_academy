@@ -24,3 +24,9 @@ else if (true) {
 } else {
     console.log("if도, elseif 도 조건이 안맞아서 else가 실행됬어요")
 }
+
+/*
+if() 키워드가 나오면 조건검사는 무조건 해요.
+if, else if, else 요거는 한 세트에요.
+하나가 조건이 맞아서 선택 되면, 나머지 세트는 선택 못해요
+ */
