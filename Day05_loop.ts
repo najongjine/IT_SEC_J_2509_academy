@@ -93,7 +93,7 @@ let data = sum2(1, 2);
 //console.log(`data : ${data}`);
 
 
-let array2 = [9, 1, 7, 3, 2, 4, 7, 89665, 22, 42, 1, 111];
+
 
 /** 
  * 숫자 정렬 함수 
@@ -151,3 +151,26 @@ function bubbleSort(arr: number[]): number[] {
 설명서를 쓰고,
 재료와 제품만 보고서 사용해요
  */
+
+
+function insertionSort(arr: number[]): number[] {
+    const result = [...arr]; // 원본 배열 훼손 방지
+
+    for (let i = 1; i < result.length; i++) {
+        const current = result[i]; // 현재 비교할 숫자
+        let j = i - 1;
+
+        // 앞쪽 정렬된 부분과 비교해서 알맞은 위치를 찾음
+        while (j >= 0 && result[j] > current) {
+            result[j + 1] = result[j]; // 오른쪽으로 밀기
+            j--;
+        }
+
+        result[j + 1] = current; // 빈 자리에 삽입
+    }
+
+    return result;
+}
+let array2 = [9, 1, 7, 3, 2, 4, 7, 89665, 22, 42, 1, 111];
+array2 = insertionSort(array2)
+console.log(array2)
