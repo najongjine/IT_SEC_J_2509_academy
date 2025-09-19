@@ -91,3 +91,6 @@ function sum2(a: number, b: number) {
 
 let data = sum2(1, 2);
 console.log(`data : ${data}`);
+
+
+let array2 = [2, 4, 6, 2, 2, 5, 76, 78, 5, 568876, -2212, 4564, 232, 99, 1, 2, 1, 2, 4, 5, 78, 89, 8, 45];
