@@ -79,3 +79,6 @@ subtract 라는 함수를 선언하고,
  */
 
 
+function sum2(a: number, b: number) {
+    return a + b;
+}
