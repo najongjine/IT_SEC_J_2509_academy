@@ -116,6 +116,38 @@ function number_sort(array2: number[]) {
     }
     return array2
 }
+function bubbleSort(arr: number[]): number[] {
+    const n = arr.length;
 
-array2 = number_sort(array2);
-console.log(array2)
+    // 배열을 끝까지 돌면서 정렬
+    for (let i = 0; i < n - 1; i++) {
+        // 이미 끝에 정렬된 값은 제외하고 반복
+        for (let j = 0; j < n - 1 - i; j++) {
+            // 앞뒤 값을 비교해서 필요하면 교환
+            if (arr[j] > arr[j + 1]) {
+                // swap
+                const temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+
+    return arr;
+}
+
+/*
+함수를 쓰는 궁극적인 이유
+
+어려운 작업을 할때 굉장히 난감해요
+컴퓨터는 무조건 사칙연산과 대입 연산 기반에
+논리연산과 제어연산을 거쳐서 작동해요
+
+하지만, 사람의 뇌는 그렇게 작동하지 않아요.
+사람은 감으로 해요
+
+서로 이해가 안되요.
+그래서, 어려운것들을 함수로 감싸고(모듈화 한다)
+설명서를 쓰고,
+재료와 제품만 보고서 사용해요
+ */
