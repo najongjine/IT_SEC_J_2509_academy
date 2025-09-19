@@ -71,7 +71,7 @@ sum 함수 이름 짓겠다. 내가 지으고 싶은걸로 지으면 되요
 {} 안에 내가 하고싶은 내용물 채우면 되요
  */
 
-sum();
+//sum();
 
 /*
 subtract 라는 함수를 선언하고,
@@ -79,6 +79,14 @@ subtract 라는 함수를 선언하고,
  */
 
 
+/** 
+ * 함수의 모범 
+ * @param a 첫 번째 숫자
+ * @param b 두 번째 숫자
+ * @returns a + b 의 결과값
+ */
 function sum2(a: number, b: number) {
     return a + b;
 }
+
+sum2(1, 2);
