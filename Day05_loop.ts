@@ -5,7 +5,7 @@
  */
 
 for (let idx = 0; idx < 3; idx++) { // idx= idx+1
-    console.log(`idx: ${idx}`);
+    //console.log(`idx: ${idx}`);
 }
 /*
 let idx=0 요건 딱 한번만 실행되요.
