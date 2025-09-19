@@ -97,8 +97,8 @@ let array2 = [9, 1, 7, 3, 2, 4, 7, 89665, 22, 42, 1, 111];
 
 /** 
  * 숫자 정렬 함수 
- * @param array2 숫자 배열
- * @returns 정렬된 숫자 배열
+ * @param array2 number[]. 숫자 배열
+ * @returns number[]. 정렬된 숫자 배열
  */
 function number_sort(array2: number[]) {
     for (let i = 0; i < array2.length; i++) {
@@ -117,3 +117,4 @@ function number_sort(array2: number[]) {
     return array2
 }
 
+array2 = number_sort(array2);
