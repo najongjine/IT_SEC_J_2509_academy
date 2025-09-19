@@ -118,3 +118,4 @@ function number_sort(array2: number[]) {
 }
 
 array2 = number_sort(array2);
+console.log(array2)
