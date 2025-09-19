@@ -43,3 +43,20 @@ for (let idx = 2; idx <= 9; idx++) { // idx= idx+1
 그래서 scope 가 다르면, 소스코드에 동일한 변수 이름이 보여도, 아예
 다른놈으로 취급되요
  */
+
+for (let item of array1) {
+    //console.log(`item: ${item}`);
+}
+
+
+
+/*
+제어문 -
+if
+loop
+
+함수 - 모듈, 기계, 블랙박스 & 화이트박스
+ */
+function sum() {
+    console.log("1+2=3");
+}
