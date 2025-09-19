@@ -95,21 +95,22 @@ let data = sum2(1, 2);
 
 let array2 = [9, 1, 7, 3];
 
-function number_sort(parameter_array: number[]) {
-    return parameter_array
-}
+function number_sort(array2: number[]) {
+    for (let i = 0; i < array2.length; i++) {
+        for (let j = i + 1; j < array2.length; j++) {
+            try {
+                if (array2[i] > array2[j]) {
+                    let temp = array2[j];
+                    array2[j] = array2[i];
+                    array2[i] = temp;
+                }
+            } catch (error: any) {
 
-for (let i = 0; i < array2.length; i++) {
-    for (let j = i + 1; j < array2.length; j++) {
-        try {
-            if (array2[i] > array2[j]) {
-                let temp = array2[j];
-                array2[j] = array2[i];
-                array2[i] = temp;
             }
-        } catch (error: any) {
-
         }
     }
+    return array2
 }
+
+
 console.log(array2)
