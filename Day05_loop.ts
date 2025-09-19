@@ -93,8 +93,13 @@ let data = sum2(1, 2);
 //console.log(`data : ${data}`);
 
 
-let array2 = [9, 1, 7, 3];
+let array2 = [9, 1, 7, 3, 2, 4, 7, 89665, 22, 42, 1, 111];
 
+/** 
+ * 숫자 정렬 함수 
+ * @param array2 숫자 배열
+ * @returns 정렬된 숫자 배열
+ */
 function number_sort(array2: number[]) {
     for (let i = 0; i < array2.length; i++) {
         for (let j = i + 1; j < array2.length; j++) {
@@ -112,5 +117,3 @@ function number_sort(array2: number[]) {
     return array2
 }
 
-
-console.log(array2)
