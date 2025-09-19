@@ -22,3 +22,8 @@ idx <3 요 조건체크가 실행되요
 idx < 3
 요 조건이 false면 빠져 나와요
  */
+
+let array1 = ["고양이", "멧돼지", "뱀"];
+for (let item of array1) {
+    console.log(`item: ${item}`);
+}
