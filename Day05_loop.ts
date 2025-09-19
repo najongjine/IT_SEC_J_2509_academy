@@ -31,9 +31,10 @@ array1.forEach((item) => {
     //console.log(`item: ${item}`);
 });
 
+// idx * idy 만큼 실행하죠
 for (let idx = 2; idx <= 9; idx++) { // idx= idx+1
-    for (let idx = 2; idx <= 9; idx++) { // idx= idx+1
-        console.log(`idx: ${idx}`);
+    for (let idy = 1; idy <= 9; idy++) { // idx= idx+1
+        console.log(`idx: ${idx} * idy: ${idy} = ${idx * idy}`);
     }
 }
 /*
