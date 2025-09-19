@@ -39,3 +39,15 @@ let score = 60;
 60~69면 D
 60점도 안되면 F
  */
+if (score >= 90) {
+    console.log("A");
+} else if (score >= 80 && score <= 89) {
+    console.log("B");
+} else if (score >= 70 && score <= 79) {
+    console.log("C");
+}
+else if (score >= 60 && score <= 69) {
+    console.log("D");
+} else {
+    console.log("F");
+}
