@@ -90,16 +90,26 @@ function sum2(a: number, b: number) {
 }
 
 let data = sum2(1, 2);
-console.log(`data : ${data}`);
+//console.log(`data : ${data}`);
 
 
-let array2 = [2, 4, 6, 2, 2, 5, 76, 78, 5, 568876, -2212, 4564, 232, 99, 1, 2, 1, 2, 4, 5, 78, 89, 8, 45];
+let array2 = [9, 1, 7, 3];
+
+function number_sort(parameter_array: number[]) {
+    return parameter_array
+}
+
 for (let i = 0; i < array2.length; i++) {
     for (let j = i + 1; j < array2.length; j++) {
         try {
-
+            if (array2[i] > array2[j]) {
+                let temp = array2[j];
+                array2[j] = array2[i];
+                array2[i] = temp;
+            }
         } catch (error: any) {
 
         }
     }
 }
+console.log(array2)
