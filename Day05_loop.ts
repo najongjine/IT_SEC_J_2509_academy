@@ -34,7 +34,7 @@ array1.forEach((item) => {
 // idx * idy 만큼 실행하죠
 for (let idx = 2; idx <= 9; idx++) { // idx= idx+1
     for (let idy = 1; idy <= 9; idy++) { // idx= idx+1
-        console.log(`idx: ${idx} * idy: ${idy} = ${idx * idy}`);
+        //console.log(`idx: ${idx} * idy: ${idy} = ${idx * idy}`);
     }
 }
 /*
@@ -70,5 +70,7 @@ sum 함수 이름 짓겠다. 내가 지으고 싶은걸로 지으면 되요
 {} 이건 () 오른쪽에 꼭 있어야 되요
 {} 안에 내가 하고싶은 내용물 채우면 되요
  */
+
+sum();
 
 
