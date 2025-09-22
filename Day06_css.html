@@ -23,16 +23,33 @@
         }
     </style>
     -->
+    <!-- 요즘 스타일 먹일때는 이런식으로 해요
+     스타일 코드가 들어있는 변수를 하나 만들고(css class를 만들고)
+     태그들은 이걸 갔다 써요-->
+    <style>
+        .highlight {
+            background-color: yellow;
+            font-weight: bold;
+            padding: 10px;
+            border: 1px solid orange;
+        }
+
+        .red-text {
+            color: red;
+        }
+    </style>
 </head>
 
 <body>
     <!-- inline css
      태그 안에다가 css 스타일 다 때려 넣는거
      잘 안쓰임-->
-    <div style="color:blue;">div 태그를 밥먹듯이 써요</div>
+    <div class="highlight">
+        <div style="color:blue;">div 태그를 밥먹듯이 써요</div>
 
-    <h1>This is a heading</h1>
-    <p>This is a paragraph.</p>
+        <h1>This is a heading</h1>
+        <p class="red-text">This is a paragraph.</p>
+    </div>
 </body>
 
 <!-- html 문서 끝 -->
