@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 
 <html>
-
-<head>
+  <head>
     <title>Page Title</title>
 
     <!-- Internal CSS 
@@ -27,31 +26,80 @@
      스타일 코드가 들어있는 변수를 하나 만들고(css class를 만들고)
      태그들은 이걸 갔다 써요-->
     <style>
-        .highlight {
-            background-color: yellow;
-            font-weight: bold;
-            padding: 10px;
-            border: 1px solid orange;
-        }
+      .highlight {
+        background-color: yellow;
+        font-weight: bold;
+        padding: 10px;
+        border: 1px solid orange;
+      }
 
-        .red-text {
-            color: red;
-        }
+      .red-text {
+        color: red;
+      }
+
+      .test-color {
+        color: aqua;
+      }
+
+      .test-bg-color {
+        background-color: lightblue;
+        opacity: 0.9;
+      }
+
+      .test-bg-image {
+        background-image: url("https://picsum.photos/200");
+      }
+
+      .test-border-dotted {
+        border-style: dotted;
+      }
+
+      .test-border-dashed {
+        border-style: dashed;
+      }
+
+      .test-border-solid {
+        border-style: solid;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- inline css
      태그 안에다가 css 스타일 다 때려 넣는거
      잘 안쓰임-->
-    <div class="highlight">
-        <div style="color:blue;">div 태그를 밥먹듯이 써요</div>
+    <div>
+      <div style="color: blue">div 태그를 밥먹듯이 써요</div>
 
-        <h1>This is a heading</h1>
-        <p class="red-text">This is a paragraph.</p>
+      <div class="test-color">테스트 color 에요</div>
+      <div class="test-bg-color">테스트 test-bg-color 에요</div>
+      <div class="test-bg-image">테스트 test-bg-image 에요</div>
+      <div class="test-border-solid">border test</div>
     </div>
-</body>
 
-<!-- html 문서 끝 -->
+    <ul>
+      <li>Coffee</li>
+      <li>Tea</li>
+      <li>Milk</li>
+    </ul>
 
+    <div>
+      <table>
+        <tr>
+          <th>Firstname</th>
+          <th>Lastname</th>
+        </tr>
+        <tr>
+          <td>Peter</td>
+          <td>Griffin</td>
+        </tr>
+        <tr>
+          <td>Lois</td>
+          <td>Griffin</td>
+        </tr>
+      </table>
+    </div>
+  </body>
+
+  <!-- html 문서 끝 -->
 </html>
