@@ -43,18 +43,27 @@
 
       .flex-container {
         display: flex;
+        align-items: stretch;
+        gap: 2vw;
+        min-height: 100dvh; /* ← mobile까지 안정적인 동적 뷰포트 단위 */
+        /* 또는 height: 100vh; (구형 브라우저 호환) */
       }
 
-      .flex-container-narrow {
-        flex-basis: 30%;
-        background: #eee; /* 확인용 배경색 */
-        margin: 2vw;
+      .left {
+        flex: 0 0 30%; /* 왼쪽 30% 고정 */
+        padding: 1rem; /* 텍스트 여백: 폰트 기준 */
       }
 
-      .flex-container-wide {
-        flex-basis: 70%;
-        background: #ccc; /* 확인용 배경색 */
-        margin: 2vw;
+      .divider {
+        align-self: stretch; /* 컨테이너 높이만큼 쭉 */
+        width: clamp(0.08rem, 0.25vw, 0.15rem); /* 얇은 세로선(반응형 두께) */
+        background: #000;
+        opacity: 0.7;
+      }
+
+      .right {
+        flex: 1 1 0; /* 나머지 70% */
+        padding: 1rem;
       }
     </style>
   </head>
@@ -73,8 +82,9 @@
      태그 안에다가 css 스타일 다 때려 넣는거
      잘 안쓰임-->
     <div class="flex-container">
-      <div class="flex-container-narrow">11111</div>
-      <div class="flex-container-wide">2222</div>
+      <div class="left">11111</div>
+      <div class="divider"></div>
+      <div class="right">2222</div>
     </div>
   </body>
 
