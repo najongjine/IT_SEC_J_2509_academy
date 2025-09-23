@@ -43,11 +43,18 @@
 
       .flex-container {
         display: flex;
-        flex-direction: row;
       }
 
-      .flex-container2 {
-        margin: 10px;
+      .flex-container-narrow {
+        flex-basis: 30%;
+        background: #eee; /* 확인용 배경색 */
+        margin: 2vw;
+      }
+
+      .flex-container-wide {
+        flex-basis: 70%;
+        background: #ccc; /* 확인용 배경색 */
+        margin: 2vw;
       }
     </style>
   </head>
@@ -66,8 +73,8 @@
      태그 안에다가 css 스타일 다 때려 넣는거
      잘 안쓰임-->
     <div class="flex-container">
-      <div class="flex-container2">11111</div>
-      <div class="flex-container2">2222</div>
+      <div class="flex-container-narrow">11111</div>
+      <div class="flex-container-wide">2222</div>
     </div>
   </body>
 
