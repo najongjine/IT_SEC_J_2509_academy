@@ -108,7 +108,8 @@
         data.innerText = "안녕히가세요";
 
         let input1 = document.getElementById("input1");
-        console.log(`input1: `, input1);
+        let input1_value = input1?.value ?? 0;
+        console.log(`input1: `, input1.value);
       })();
     </script>
   </body>
