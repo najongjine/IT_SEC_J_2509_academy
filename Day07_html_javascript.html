@@ -90,7 +90,10 @@
     <div class="flex-container">
       <div id="demo">메롱</div>
       <div class="right">
-        <span> <input /> + <input / > = <span>...</span> </span>
+        <span>
+          <input id="input1" /> + <input id="input2"/ > =
+          <span id="result1">...</span>
+        </span>
       </div>
     </div>
 
@@ -102,6 +105,7 @@
       (async () => {
         let data = document.getElementById("demo");
         console.log(`data: `, data);
+        data.innerText = "안녕히가세요";
       })();
     </script>
   </body>
