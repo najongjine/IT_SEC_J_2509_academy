@@ -91,8 +91,11 @@
       <div id="demo">메롱</div>
       <div class="right">
         <span>
-          <input id="input1" onkeypress="test(event)" /> + <input id="input2"
-          onkeypress="test(event)"/ > =
+          <!-- onkeypress : input 에서 눌렀을때 발동하는 이벤트.
+           test() 요건 우리가 만든 함수(모듈)
+           event는 html이 정해준 데이터 -->
+          <input id="input1" onkeypress="test(event)" type="number" /> + <input
+          id="input2" onkeypress="test(event)" type="number" / > =
           <span id="result1">...</span>
         </span>
       </div>
@@ -103,7 +106,10 @@
     </footer>
 
     <script>
+      /* 우리가 만든 모듈
+      event 는 html이 준 데이터를 우리가 event 라는 메게변수를 만들어서 받은거에요 */
       function test(event) {
+        // event 에서 누른 키보드가 엔터키면 if 문 안에 있는거 실행해라
         if (event.keyCode == 13) {
           alert("작동!");
         }
