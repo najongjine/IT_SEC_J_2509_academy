@@ -89,6 +89,8 @@
      잘 안쓰임-->
     <div class="flex-container">
       <div id="demo">메롱</div>
+      <img />
+      <video></video>
       <div class="right">
         <span>
           <!-- onkeypress : input 에서 눌렀을때 발동하는 이벤트.
@@ -118,15 +120,17 @@
 
           /* input1 이라는 객체에서, value 라는 속성에 값이 없으면
         0으로 할게요 */
-          let input1_value = input1?.value ?? 0;
+          let input1_value = Number(input1?.value) ?? 0;
           console.log(`input1: `, input1);
 
           let input2 = document.getElementById("input2");
-          let input2_value = input2?.value ?? 0;
+          let input2_value = Number(input2?.value) ?? 0;
 
           /* input1_value + input2_value 값을 id="result1" 부분에
         값을 표시해 주세요 */
           let result1 = document.getElementById("result1");
+          console.log(`input1_value 의 타입: `, typeof input1_value);
+          console.log(`input2_value 의 타입: `, typeof input2_value);
           result1.innerText = input1_value + input2_value;
         }
       }
