@@ -113,6 +113,21 @@
         if (event.keyCode == 13) {
           /* input 에서 enter 키 누르면, input1 에 있는 값 + input2 에 있는 값
           을 result1 에 표시하기*/
+          // input1 에 <input id="input1" /> 저장됨
+          let input1 = document.getElementById("input1");
+
+          /* input1 이라는 객체에서, value 라는 속성에 값이 없으면
+        0으로 할게요 */
+          let input1_value = input1?.value ?? 0;
+          console.log(`input1: `, input1);
+
+          let input2 = document.getElementById("input2");
+          let input2_value = input2?.value ?? 0;
+
+          /* input1_value + input2_value 값을 id="result1" 부분에
+        값을 표시해 주세요 */
+          let result1 = document.getElementById("result1");
+          result1.innerText = input1_value + input2_value;
         }
       }
 
@@ -126,22 +141,6 @@
 
         let data = document.getElementById("demo");
         data.innerText = "안녕히가세요";
-
-        // input1 에 <input id="input1" /> 저장됨
-        let input1 = document.getElementById("input1");
-
-        /* input1 이라는 객체에서, value 라는 속성에 값이 없으면
-        0으로 할게요 */
-        let input1_value = input1?.value ?? 0;
-        console.log(`input1: `, input1);
-
-        let input2 = document.getElementById("input2");
-        let input2_value = input2?.value ?? 0;
-
-        /* input1_value + input2_value 값을 id="result1" 부분에
-        값을 표시해 주세요 */
-        let result1 = document.getElementById("result1");
-        result1.innerText = input1_value + input2_value;
       })();
     </script>
   </body>
