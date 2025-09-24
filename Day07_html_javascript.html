@@ -134,8 +134,19 @@
           /* + 밖에 안되요...
           + - * / %   되는 계산기 만들어 주세요 */
           let operator = document.getElementById("operator");
+          // 여기에 operator 라는 input에 내가 친게 담겨요
           let operator_text = operator?.value ?? "";
-          result1.innerText = input1_value + input2_value;
+          if (operator_text == "+") {
+            result1.innerText = input1_value + input2_value;
+          } else if (operator_text == "-") {
+            result1.innerText = input1_value - input2_value;
+          } else if (operator_text == "*") {
+            result1.innerText = input1_value * input2_value;
+          } else if (operator_text == "/") {
+            result1.innerText = input1_value / input2_value;
+          } else if (operator_text == "%") {
+            result1.innerText = input1_value % input2_value;
+          }
         }
       }
 
