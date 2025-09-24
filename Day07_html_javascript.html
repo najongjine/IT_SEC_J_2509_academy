@@ -127,11 +127,12 @@
           let input2 = document.getElementById("input2");
           let input2_value = Number(input2?.value) ?? 0;
 
-          /* input1_value + input2_value 값을 id="result1" 부분에
-        값을 표시해 주세요 */
           let result1 = document.getElementById("result1");
           console.log(`input1_value 의 타입: `, typeof input1_value);
           console.log(`input2_value 의 타입: `, typeof input2_value);
+
+          /* + 밖에 안되요...
+          + - * / %   되는 계산기 만들어 주세요 */
           result1.innerText = input1_value + input2_value;
         }
       }
