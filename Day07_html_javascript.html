@@ -91,8 +91,8 @@
       <div id="demo">메롱</div>
       <div class="right">
         <span>
-          <input id="input1" onkeypress="" /> + <input id="input2"
-          onkeypress=""/ > =
+          <input id="input1" onkeypress="test(event)" /> + <input id="input2"
+          onkeypress="test(event)"/ > =
           <span id="result1">...</span>
         </span>
       </div>
@@ -103,6 +103,10 @@
     </footer>
 
     <script>
+      function test(event) {
+        alert("잓동함");
+      }
+
       (async () => {
         let dummy = { 속성1: "", 속성2: 0 };
         /* null safety
