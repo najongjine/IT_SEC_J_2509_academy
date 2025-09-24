@@ -104,7 +104,9 @@
 
     <script>
       function test(event) {
-        alert("잓동함");
+        if (event.keyCode == 13) {
+          alert("작동!");
+        }
       }
 
       (async () => {
