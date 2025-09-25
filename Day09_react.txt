@@ -1,3 +1,4 @@
 npm create vite@latest react_test1 -- --template react-ts
 
+vs code에서 ctrl + j 로 terminal 열기
 npm run dev
