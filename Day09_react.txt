@@ -11,3 +11,26 @@ Framework - 틀
 대부분 react 시스템이 갔다 쓰는거고,
 사람 입장에선 .tsx 이것만 보면 되요
 현재 시점에선 App.tsx 이것만 보면 된다는 거에요
+
+/* 
+function App() { }
+export default App;
+얘네는 전자칠판의 케이스라고 생각
+절대 지우면 안됨
+*/
+function App() {
+  
+  // 변수(바인딩)
+  const [count, setCount] = useState(0);
+  // 변수(시스템)
+  let dummy1 = "뭐뭐 데이터";
+
+  return (
+    {/* html 쓰는곳 */}
+    <div>
+      <div>dummy1 : {dummy1}</div>
+    </div>
+  );
+}
+
+export default App;
