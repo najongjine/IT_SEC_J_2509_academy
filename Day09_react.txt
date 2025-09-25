@@ -2,3 +2,7 @@ npm create vite@latest react_test1 -- --template react-ts
 
 vs code에서 ctrl + j 로 terminal 열기
 npm run dev
+
+Framework - 틀 
+정해진 규칙 안에서 해야함
+하지만, 필요한거 이미 다 셋팅 해놓음
