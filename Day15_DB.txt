@@ -20,6 +20,10 @@ DB 작은용량 무료지원
 
 
 테이블 이름 : t_user
+username  varchar      ''
+password  varchar      ''
+created_dt timestamptz now()
+updated_dt timestamptz now()
 
 
 
