@@ -31,6 +31,8 @@ user_id  int4
 
 FK 가 있는 테이블이 무조간 자식 테이블
 
+부모 1 : 자식 N
+
 
 fastapi
 
