@@ -26,6 +26,9 @@ created_dt timestamptz now()
 updated_dt timestamptz now()
 
 
+테이블 이름 : t_board
+
+
 
 fastapi
 
