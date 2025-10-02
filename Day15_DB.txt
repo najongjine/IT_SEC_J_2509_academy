@@ -26,10 +26,6 @@ created_dt timestamptz now()
 updated_dt timestamptz now()
 
 
-SET TIME ZONE 'Asia/Seoul';
-
-
-
 
 fastapi
 
