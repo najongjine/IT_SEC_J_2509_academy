@@ -34,6 +34,14 @@ FK 가 있는 테이블이 무조간 자식 테이블
 부모 1 : 자식 N
 
 
+한국에서 쓰는 서버 3대장
+1. Spring
+2. Nodejs(express, 최신은 Hono)
+3. FastAPI
+4. .Net Core C#
+
+
+
 fastapi
 
 uvicorn[standard]
