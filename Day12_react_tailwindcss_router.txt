@@ -1,0 +1,69 @@
+npm create vite@latest react_test1 -- --template react-ts
+
+vs code에서 ctrl + j 로 terminal 열기
+npm run dev
+
+Framework - 틀 
+정해진 규칙 안에서 해야함
+하지만, 필요한거 이미 다 셋팅 해놓음
+
+리엑트에 파일이 많아요
+대부분 react 시스템이 갔다 쓰는거고,
+사람 입장에선 .tsx 이것만 보면 되요
+현재 시점에선 App.tsx 이것만 보면 된다는 거에요
+
+/* 
+function App() { }
+export default App;
+얘네는 전자칠판의 케이스라고 생각
+절대 지우면 안됨
+*/
+function App() {
+  
+  // 변수(바인딩)
+  // count 가 바인딩 변수 이름, setCount가
+  // 바인딩 변수 바꾸는 함수
+  const [count, setCount] = useState(0);
+  // 변수(시스템)
+  let dummy1 = "뭐뭐 데이터";
+
+  return (
+    {/* html 쓰는곳 */}
+    <div>
+      <div>dummy1 : {dummy1}</div>
+    </div>
+  );
+}
+
+export default App;
+
+
+
+
+
+import { useEffect, useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+
+function App() {
+  /* inputVal 이라는 바인딩 변수랑 set 함수 만들어 주세요.
+  타입은 string */
+  const [inputVal, setinputVal] = useState<string>("");
+  useEffect(() => {}, []);
+
+  return (
+    <div>
+      <div>
+        <input
+          value={inputVal}
+          onChange={(event) => {
+            setinputVal(event?.target?.value ?? "");
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+export default App;

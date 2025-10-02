@@ -1,0 +1,12 @@
+webserver
+리엑트, 리엑트네이티브
+
+
+WAS
+FastAPI, SpringBoot, Nodejs(Hono,express)
+NetCore
+
+DB
+학습용은 mariadb
+실전에선 postgres
+
