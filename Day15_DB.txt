@@ -27,7 +27,9 @@ updated_dt timestamptz now()
 
 
 테이블 이름 : t_board
+user_id  int4
 
+FK 가 있는 테이블이 무조간 자식 테이블
 
 
 fastapi
