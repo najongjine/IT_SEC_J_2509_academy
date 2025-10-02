@@ -10,3 +10,12 @@ DB
 학습용은 mariadb
 실전에선 postgres
 
+
+Vercel -
+serverless cloud
+React 배포를 위한 사이트.
+서버(WAS) 는 일부 기능만 지원.
+DB 작은용량 무료지원
+인공지능은 돌릴수 없어요.
+
+
