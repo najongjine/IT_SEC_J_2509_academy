@@ -19,3 +19,21 @@ DB 작은용량 무료지원
 인공지능은 돌릴수 없어요.
 
 
+테이블 이름 : t_user
+
+
+
+
+fastapi
+
+uvicorn[standard]
+
+sqlalchemy
+
+asyncpg # 비동기 Postgres 드라이버
+
+pydantic-settings
+
+python-dotenv
+
+
