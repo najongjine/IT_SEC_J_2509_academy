@@ -24,3 +24,14 @@ FROM t_user
 INSERT INTO t_user(username, password)
 VALUES('홍길동','1234')
 ;
+
+-- 데이터 수정. 무조건 where id 들어가야함. 안그러면 데이터 다 날라감
+UPDATE t_user SET
+password='aaaa'
+WHERE id=1
+;
+
+-- 데이터 삭제. 무조건 where id 들어가야함. 안그러면 데이터 다 날라감
+DELETE FROM t_user
+WHERE id=1
+;
