@@ -1,0 +1,19 @@
+Nodejs-
+리엑트 (웹, 앱),서버, 거진 만능
+
+파이썬-
+AI {
+    약 인공지능
+    강 인공지능 GPT
+}
+
+DB -
+postgres (실무에서 많이씀) 엔진
+table plus (툴)
+
+FastAPI -
+서버
+
+INSERT INTO t_user(username, password)
+VALUES('홍길동','1234')
+;
