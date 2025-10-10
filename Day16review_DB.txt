@@ -35,3 +35,14 @@ WHERE id=1
 DELETE FROM t_user
 WHERE id=1
 ;
+
+
+SELECT
+u.id AS user_id
+,u.username
+,b.id AS board_id
+,b.title
+,b.content
+FROM t_board AS b
+LEFT JOIN t_user AS u ON u.id = b.user_id
+;
