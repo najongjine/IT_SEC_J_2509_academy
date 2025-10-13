@@ -88,10 +88,12 @@ def default_get():
     result={"success":True, "data":None, "msg":""}
     try:
         result["data"]="ok"
+        99/0
         return result
     except Exception as e:
-        pass
-    pass
+        result["success"]=False
+        result["msg"]=f"server error. {e!r}"
+        return result
 
 if __name__ == "__main__":
     uvicorn.run("app:app", host="localhost", port=8000, reload=True)
