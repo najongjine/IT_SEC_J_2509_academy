@@ -67,3 +67,17 @@ uv pip install -r requirements.txt
 pip install uv 해주세요
 그다음 uv pip install -r requirements.txt  실행해 주세요
 ##
+
+
+
+
+------app.py-------
+from contextlib import asynccontextmanager
+from fastapi import FastAPI, Depends, HTTPException
+from pydantic import BaseModel
+import uvicorn
+import asyncpg
+from typing import List, Dict, Any, Union
+
+import os # 환경 변수를 읽기 위해 os 모듈 추가
+------------------
