@@ -61,6 +61,8 @@ scikit-learn
 
 uv pip install -r requirements.txt
 
+uv run python app.py
+
 ## 
 만약 uv pip install -r requirements.txt 실행시 에러 난다면
 .\venv\Scripts\Activate.ps1  이게 활성화 된 상태에서
@@ -106,3 +108,10 @@ if __name__ == "__main__":
 
 인터넷은 모든 데이터를 문자열로 주고 받아요.
 서버도 문자열로 받고, 문자열로 줘요
+
+
+에러에는 3가지가 있어요
+1. 문법 에러. vs code 같은데서 빨간줄로 알려줘요
+2. 컴파일 에러. java, c#, typescript 같은에서 저장하기, 컴파일하기 같은거 수행할때 
+power shell 에 나타나요
+3. 런타임 에러. 이건 실행 해봐야 알아요
