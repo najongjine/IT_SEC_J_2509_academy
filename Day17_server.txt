@@ -45,3 +45,6 @@ py -3.10 -m uv venv venv
 
 # 가상환경 활성화 해라
 .\venv\Scripts\Activate.ps1
+
+
+requirements.txt
