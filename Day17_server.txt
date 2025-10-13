@@ -60,3 +60,10 @@ scikit-learn
 -------------------------
 
 uv pip install -r requirements.txt
+
+## 
+만약 uv pip install -r requirements.txt 실행시 에러 난다면
+.\venv\Scripts\Activate.ps1  이게 활성화 된 상태에서
+pip install uv 해주세요
+그다음 uv pip install -r requirements.txt  실행해 주세요
+##
