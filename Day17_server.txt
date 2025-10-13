@@ -37,8 +37,11 @@ Pytorch - Meta, 3.10~3.13 까지만 지원,
 그래서 파이썬 버전 다 다르게 설치하고, 어떻게 사용할거냐?
 uv 라는걸로 사용 할겁니다.
 
+# 피이썬 3.10 버전에 uv를 설치해라
 py -3.10 -m pip install uv
 
+# 파이썬 3.10 버전으로 가상환경 만들어라
 py -3.10 -m uv venv venv
 
+# 가상환경 활성화 해라
 .\venv\Scripts\Activate.ps1
