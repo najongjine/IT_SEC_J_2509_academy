@@ -81,6 +81,8 @@ from typing import List, Dict, Any, Union
 
 import os # 환경 변수를 읽기 위해 os 모듈 추가
 
+app = FastAPI()
+
 def default_get():
     result={"success":True, "data":None, "msg":""}
     try:
