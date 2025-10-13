@@ -80,4 +80,16 @@ import asyncpg
 from typing import List, Dict, Any, Union
 
 import os # 환경 변수를 읽기 위해 os 모듈 추가
+
+def default_get():
+    result={"success":True, "data":None, "msg":""}
+    try:
+        result["data"]="ok"
+        return result
+    except Exception as e:
+        pass
+    pass
+
+if __name__ == "__main__":
+    uvicorn.run("app:app", host="localhost", port=8000, reload=True)
 ------------------
