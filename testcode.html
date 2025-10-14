@@ -1,0 +1,2053 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Survivors</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #111;
+        overflow: hidden;
+        font-family: "Press Start 2P", cursive;
+        user-select: none;
+      }
+
+      #gameCanvas {
+        display: block;
+      }
+
+      /* UI Overlays */
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        z-index: 10;
+        text-align: center;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      h1 {
+        color: #ff4444;
+        text-shadow: 4px 4px #000;
+        font-size: 48px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        color: #ffd700;
+        text-shadow: 2px 2px #000;
+        margin-bottom: 30px;
+      }
+      p {
+        line-height: 1.5;
+        font-size: 14px;
+        color: #ccc;
+        max-width: 600px;
+        margin: 10px auto;
+      }
+
+      button {
+        background: #444;
+        color: white;
+        border: 4px solid #fff;
+        padding: 15px 30px;
+        font-family: "Press Start 2P", cursive;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 10px;
+        transition: all 0.2s;
+        image-rendering: pixelated;
+        box-shadow: 0 6px #222;
+        position: relative;
+        top: 0;
+      }
+
+      button:hover {
+        background: #666;
+        top: -2px;
+        box-shadow: 0 8px #222;
+      }
+      button:active {
+        top: 4px;
+        box-shadow: 0 2px #222;
+      }
+
+      /* HUD */
+      #hud {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        pointer-events: none;
+        padding: 10px;
+        box-sizing: border-box;
+        z-index: 5;
+      }
+
+      .xp-container {
+        width: 100%;
+        height: 20px;
+        background: #222;
+        border: 2px solid #fff;
+        position: relative;
+      }
+
+      #xpBar {
+        height: 100%;
+        background: #00bfff;
+        width: 0%;
+        transition: width 0.2s;
+      }
+
+      #levelText {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 12px;
+        text-shadow: 1px 1px 0 #000;
+      }
+
+      .top-info {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        color: white;
+        font-size: 16px;
+        text-shadow: 2px 2px 0 #000;
+      }
+
+      /* Level Up Menu */
+      #levelUpMenu {
+        background: rgba(20, 20, 40, 0.95);
+        border: 4px solid #4466ff;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 800px;
+      }
+
+      #upgradeContainer {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 20px;
+      }
+
+      .upgrade-card {
+        background: #2a2a4a;
+        border: 3px solid #fff;
+        width: 200px;
+        padding: 15px;
+        cursor: pointer;
+        transition: transform 0.2s, background 0.2s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .upgrade-card:hover {
+        transform: scale(1.05);
+        background: #3a3a5a;
+        border-color: #ffd700;
+      }
+
+      .upgrade-icon {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 10px;
+        background-color: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid #666;
+      }
+
+      .upgrade-title {
+        color: #ffd700;
+        font-size: 12px;
+        margin-bottom: 5px;
+      }
+      .upgrade-type {
+        color: #aaa;
+        font-size: 8px;
+        margin-bottom: 10px;
+      }
+      .upgrade-desc {
+        color: #fff;
+        font-size: 10px;
+        line-height: 1.4;
+      }
+      .new-tag {
+        background: #ff4444;
+        color: white;
+        padding: 2px 5px;
+        font-size: 8px;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+      }
+
+      /* Canvas icons generated via CSS/Canvas later */
+      .icon-canvas {
+        width: 48px;
+        height: 48px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- CANAVS -->
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- HUD -->
+    <div id="hud">
+      <div class="xp-container">
+        <div id="xpBar"></div>
+        <div id="levelText">LV 1</div>
+      </div>
+      <div class="top-info">
+        <div id="timer">00:00</div>
+        <div id="killCount">💀 0</div>
+      </div>
+    </div>
+
+    <!-- MENUS -->
+    <div id="startScreen" class="overlay">
+      <h1>JS SURVIVORS</h1>
+      <p>Survive for 15 minutes against endless hordes.</p>
+      <p>WASD/Arrows to move. Attacks are automatic.</p>
+      <button id="btnStart">START GAME</button>
+      <br />
+      <p style="font-size: 10px; color: #666">
+        Enable audio for best experience
+      </p>
+    </div>
+
+    <div id="pauseMenu" class="overlay hidden">
+      <h2>PAUSED</h2>
+      <div
+        id="statsContainer"
+        style="text-align: left; margin-bottom: 20px; font-size: 10px"
+      ></div>
+      <button id="btnResume">RESUME</button>
+    </div>
+
+    <div id="gameOverScreen" class="overlay hidden">
+      <h1 id="goTitle" style="color: #ff0000">GAME OVER</h1>
+      <h2 id="goTime">Survived: 00:00</h2>
+      <p id="goKills">Enemies Defeated: 0</p>
+      <p id="goLevel">Level Reached: 1</p>
+      <button id="btnRestart">TRY AGAIN</button>
+    </div>
+
+    <div id="victoryScreen" class="overlay hidden">
+      <h1 style="color: #ffd700">VICTORY!</h1>
+      <p>You survived the night.</p>
+      <p id="vKills">Total Kills: 0</p>
+      <button id="btnRestartVic">PLAY AGAIN</button>
+    </div>
+
+    <div id="levelUpScreen" class="overlay hidden">
+      <div id="levelUpMenu">
+        <h2 style="color: #00bfff; margin: 0">LEVEL UP!</h2>
+        <p style="margin-bottom: 0">Choose an upgrade</p>
+        <div id="upgradeContainer">
+          <!-- dynamically populated -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /* 
+=========================================================================
+   JS SURVIVORS - ENGINE & GAME LOGIC
+=========================================================================
+*/
+
+      // --- COFIGURATION & CONSTANTS ---
+      const C = {
+        WIDTH: window.innerWidth,
+        HEIGHT: window.innerHeight,
+        FPS: 60,
+        TARGET_TIME: 15 * 60, // 15 minutes in seconds
+        TILE_SIZE: 128, // For grid background
+        COLORS: {
+          bg: "#1a1a20",
+          grid: "#252530",
+          player: "#3388ff",
+          xpInfo: "#00bfff",
+          hp: "#ff3333",
+          hpBg: "#440000",
+
+          // Enemy Tiers
+          e1: "#aa5555", // Bat
+          e2: "#55aa55", // Zombie
+          e3: "#6666aa", // Skeleton
+          e4: "#aa55aa", // Ghost
+          e5: "#aa8855", // Tank
+
+          // XP Gems
+          xp1: "#00bfff",
+          xp2: "#00ff00",
+          xp3: "#ff00ff",
+
+          // Damage Numbers
+          dmgWhite: "#ffffff",
+          dmgCrit: "#ffff00",
+        },
+      };
+
+      // Global Game State
+      const GS = {
+        canvas: document.getElementById("gameCanvas"),
+        ctx: document
+          .getElementById("gameCanvas")
+          .getContext("2d", { alpha: false }),
+        state: "start", // start, running, paused, levelup, gameover, victory
+
+        // Entities
+        player: null,
+        enemies: [],
+        projectiles: [],
+        gems: [],
+        particles: [],
+        damageTexts: [],
+
+        // Systems
+        camera: { x: 0, y: 0 },
+        input: { up: false, down: false, left: false, right: false },
+        audio: null,
+
+        // Meta
+        time: 0,
+        kills: 0,
+        frameCount: 0,
+        lastTime: 0,
+        dt: 0,
+        screenShake: 0,
+      };
+
+      // Resize handling
+      function resize() {
+        C.WIDTH = window.innerWidth;
+        C.HEIGHT = window.innerHeight;
+        GS.canvas.width = C.WIDTH;
+        GS.canvas.height = C.HEIGHT;
+        GS.ctx.imageSmoothingEnabled = false;
+      }
+      window.addEventListener("resize", resize);
+      resize();
+
+      // --- MATH UTILS ---
+      const M = {
+        dist: (x1, y1, x2, y2) => Math.hypot(x2 - x1, y2 - y1),
+        distSq: (x1, y1, x2, y2) => (x2 - x1) ** 2 + (y2 - y1) ** 2,
+        angle: (x1, y1, x2, y2) => Math.atan2(y2 - y1, x2 - x1),
+        rand: (min, max) => Math.random() * (max - min) + min,
+        randInt: (min, max) =>
+          Math.floor(Math.random() * (max - min + 1)) + min,
+        clamp: (val, min, max) => Math.min(Math.max(val, min), max),
+        lerp: (a, b, t) => a + (b - a) * t,
+
+        // Circle-Circle Collision
+        collides: (a, b) => M.distSq(a.x, a.y, b.x, b.y) < (a.r + b.r) ** 2,
+
+        // Rectangle-Circle (for beams)
+        rectCircleCollides: (rect, circle) => {
+          let dx = Math.abs(circle.x - rect.x);
+          let dy = Math.abs(circle.y - rect.y);
+
+          if (dx > rect.w / 2 + circle.r) {
+            return false;
+          }
+          if (dy > rect.h / 2 + circle.r) {
+            return false;
+          }
+
+          if (dx <= rect.w / 2) {
+            return true;
+          }
+          if (dy <= rect.h / 2) {
+            return true;
+          }
+
+          let cornerDistSq = (dx - rect.w / 2) ** 2 + (dy - rect.h / 2) ** 2;
+          return cornerDistSq <= circle.r ** 2;
+        },
+
+        formatTime: (s) => {
+          const m = Math.floor(s / 60);
+          const sec = Math.floor(s % 60);
+          return `${m.toString().padStart(2, "0")}:${sec
+            .toString()
+            .padStart(2, "0")}`;
+        },
+      };
+
+      // --- AUDIO SYSTEM (Synthesized) ---
+      class AudioSys {
+        constructor() {
+          this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+          this.masterVol = 0.3;
+        }
+
+        playTone(freq, type, duration, vol = 1, slide = 0) {
+          if (GS.state === "paused") return;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+          if (slide !== 0) {
+            osc.frequency.exponentialRampToValueAtTime(
+              freq + slide,
+              this.ctx.currentTime + duration
+            );
+          }
+
+          gain.gain.setValueAtTime(vol * this.masterVol, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(
+            0.01,
+            this.ctx.currentTime + duration
+          );
+
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+
+          osc.start();
+          osc.stop(this.ctx.currentTime + duration);
+        }
+
+        // Sound Effects
+        sfxShoot() {
+          this.playTone(M.rand(300, 600), "square", 0.1, 0.2, -200);
+        }
+        sfxHit() {
+          this.playTone(M.rand(100, 200), "sawtooth", 0.1, 0.3);
+        }
+        sfxXp() {
+          this.playTone(M.rand(800, 1200), "sine", 0.05, 0.1);
+        }
+        sfxLevelUp() {
+          const now = this.ctx.currentTime;
+          [440, 554, 659, 880].forEach((freq, i) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = "square";
+            osc.frequency.value = freq;
+            gain.gain.setValueAtTime(0.2, now + i * 0.1);
+            gain.gain.linearRampToValueAtTime(0, now + i * 0.1 + 0.2);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(now + i * 0.1);
+            osc.stop(now + i * 0.1 + 0.2);
+          });
+        }
+        sfxHurt() {
+          this.playTone(150, "sawtooth", 0.3, 0.5, -50);
+        }
+        sfxDie() {
+          this.playTone(100, "sawtooth", 1.5, 0.6, -80);
+        }
+      }
+
+      // --- DRAWING HELPERS ---
+      const Draw = {
+        circle: (x, y, r, color, stroke = null, lw = 2) => {
+          const cx = x - GS.camera.x + C.WIDTH / 2;
+          const cy = y - GS.camera.y + C.HEIGHT / 2;
+          // Cull off-screen
+          if (cx < -r || cx > C.WIDTH + r || cy < -r || cy > C.HEIGHT + r)
+            return;
+
+          GS.ctx.beginPath();
+          GS.ctx.arc(cx, cy, r, 0, Math.PI * 2);
+          GS.ctx.fillStyle = color;
+          GS.ctx.fill();
+          if (stroke) {
+            GS.ctx.strokeStyle = stroke;
+            GS.ctx.lineWidth = lw;
+            GS.ctx.stroke();
+          }
+        },
+
+        rect: (x, y, w, h, color, angle = 0) => {
+          const cx = x - GS.camera.x + C.WIDTH / 2;
+          const cy = y - GS.camera.y + C.HEIGHT / 2;
+
+          GS.ctx.save();
+          GS.ctx.translate(cx, cy);
+          GS.ctx.rotate(angle);
+          GS.ctx.fillStyle = color;
+          GS.ctx.fillRect(-w / 2, -h / 2, w, h);
+          GS.ctx.restore();
+        },
+
+        text: (str, x, y, size, color, align = "center") => {
+          const cx = x - GS.camera.x + C.WIDTH / 2;
+          const cy = y - GS.camera.y + C.HEIGHT / 2;
+          GS.ctx.font = `${size}px 'Press Start 2P'`;
+          GS.ctx.fillStyle = color;
+          GS.ctx.textAlign = align;
+          GS.ctx.strokeStyle = "black";
+          GS.ctx.lineWidth = size / 5;
+          GS.ctx.strokeText(str, cx, cy);
+          GS.ctx.fillText(str, cx, cy);
+        },
+
+        // Draw Grid Background creates illusion of movement
+        background: () => {
+          GS.ctx.fillStyle = C.COLORS.bg;
+          GS.ctx.fillRect(0, 0, C.WIDTH, C.HEIGHT);
+
+          GS.ctx.strokeStyle = C.COLORS.grid;
+          GS.ctx.lineWidth = 2;
+          GS.ctx.beginPath();
+
+          const offX = (C.WIDTH / 2 - GS.camera.x) % C.TILE_SIZE;
+          const offY = (C.HEIGHT / 2 - GS.camera.y) % C.TILE_SIZE;
+
+          for (
+            let x = offX - C.TILE_SIZE;
+            x < C.WIDTH + C.TILE_SIZE;
+            x += C.TILE_SIZE
+          ) {
+            GS.ctx.moveTo(x, 0);
+            GS.ctx.lineTo(x, C.HEIGHT);
+          }
+          for (
+            let y = offY - C.TILE_SIZE;
+            y < C.HEIGHT + C.TILE_SIZE;
+            y += C.TILE_SIZE
+          ) {
+            GS.ctx.moveTo(0, y);
+            GS.ctx.lineTo(C.WIDTH, y);
+          }
+          GS.ctx.stroke();
+        },
+      };
+
+      // --- BASE CLASSES ---
+
+      class Entity {
+        constructor(x, y, r) {
+          this.x = x;
+          this.y = y;
+          this.r = r; // Radius for collision
+          this.active = true;
+        }
+      }
+
+      // --- VISUAL EFFECTS ---
+
+      class Particle extends Entity {
+        constructor(x, y, color, size, speed, life) {
+          super(x, y, 0);
+          this.color = color;
+          this.size = size;
+          this.life = life;
+          this.maxLife = life;
+          const a = M.rand(0, Math.PI * 2);
+          this.vx = Math.cos(a) * speed;
+          this.vy = Math.sin(a) * speed;
+        }
+
+        update() {
+          this.x += this.vx * GS.dt;
+          this.y += this.vy * GS.dt;
+          this.life -= GS.dt;
+          if (this.life <= 0) this.active = false;
+        }
+
+        draw() {
+          const alpha = this.life / this.maxLife;
+          GS.ctx.globalAlpha = alpha;
+          Draw.circle(this.x, this.y, this.size, this.color);
+          GS.ctx.globalAlpha = 1;
+        }
+      }
+
+      class DamageText extends Entity {
+        constructor(x, y, dmg, isCrit) {
+          super(x + M.rand(-10, 10), y - 20, 0);
+          this.text = Math.round(dmg);
+          this.color = isCrit ? C.COLORS.dmgCrit : C.COLORS.dmgWhite;
+          this.size = isCrit ? 20 : 12;
+          this.life = 1; // second
+          this.vy = -50;
+        }
+
+        update() {
+          this.y += this.vy * GS.dt;
+          this.life -= GS.dt;
+          if (this.life <= 0) this.active = false;
+        }
+
+        draw() {
+          GS.ctx.globalAlpha = Math.min(1, this.life * 2);
+          Draw.text(this.text, this.x, this.y, this.size, this.color);
+          GS.ctx.globalAlpha = 1;
+        }
+      }
+
+      function spawnParticles(x, y, color, count, hw = false) {
+        for (let i = 0; i < count; i++) {
+          let s = hw ? M.rand(50, 150) : M.rand(100, 300);
+          let sz = hw ? M.rand(2, 5) : M.rand(1, 3);
+          GS.particles.push(new Particle(x, y, color, sz, s, M.rand(0.2, 0.5)));
+        }
+      }
+
+      // --- COLLECTIBLES ---
+
+      class ExperienceOrb extends Entity {
+        constructor(x, y, value) {
+          super(x, y, 6);
+          this.value = value;
+          if (value < 5) {
+            this.color = C.COLORS.xp1;
+            this.r = 5;
+          } else if (value < 20) {
+            this.color = C.COLORS.xp2;
+            this.r = 7;
+          } else {
+            this.color = C.COLORS.xp3;
+            this.r = 9;
+          }
+
+          this.vx = 0;
+          this.vy = 0;
+          this.magnetized = false;
+        }
+
+        update() {
+          const distToPlayerSq = M.distSq(
+            this.x,
+            this.y,
+            GS.player.x,
+            GS.player.y
+          );
+
+          // Magnet effect
+          if (this.magnetized || distToPlayerSq < GS.player.stats.magnet ** 2) {
+            this.magnetized = true;
+            const angle = M.angle(this.x, this.y, GS.player.x, GS.player.y);
+            const speed = 600;
+            this.vx = M.lerp(this.vx, Math.cos(angle) * speed, 5 * GS.dt);
+            this.vy = M.lerp(this.vy, Math.sin(angle) * speed, 5 * GS.dt);
+            this.x += this.vx * GS.dt;
+            this.y += this.vy * GS.dt;
+
+            // Collect
+            if (distToPlayerSq < (GS.player.r + this.r) ** 2) {
+              GS.player.gainXp(this.value);
+              this.active = false;
+              if (GS.audio) GS.audio.sfxXp();
+            }
+          } else {
+            // bobbing animation
+            this.y += Math.sin(GS.time * 5 + this.x) * 10 * GS.dt;
+          }
+        }
+
+        draw() {
+          Draw.circle(this.x, this.y, this.r, this.color, "#fff", 1);
+          // Glow
+          const cx = this.x - GS.camera.x + C.WIDTH / 2;
+          const cy = this.y - GS.camera.y + C.HEIGHT / 2;
+          // Simple cull
+          if (cx < -20 || cx > C.WIDTH + 20 || cy < -20 || cy > C.HEIGHT + 20)
+            return;
+
+          GS.ctx.globalAlpha = 0.3;
+          Draw.circle(this.x, this.y, this.r * 2, this.color);
+          GS.ctx.globalAlpha = 1;
+        }
+      }
+
+      // --- PROJECTILES ---
+
+      class Projectile extends Entity {
+        constructor(x, y, r, vx, vy, damage, pierce, duration, color, kb) {
+          super(x, y, r);
+          this.vx = vx;
+          this.vy = vy;
+          this.damage = damage;
+          this.pierce = pierce;
+          this.duration = duration;
+          this.color = color;
+          this.kb = kb; // knockback value
+          this.hitList = []; // enemies already hit this frame/period
+        }
+
+        update() {
+          this.x += this.vx * GS.dt;
+          this.y += this.vy * GS.dt;
+          this.duration -= GS.dt;
+          if (this.duration <= 0) this.active = false;
+
+          // Behavior specific logic in subclasses, but basic cleanup here
+          this.hitList = [];
+        }
+
+        draw() {
+          Draw.circle(this.x, this.y, this.r, this.color, "#fff", 2);
+          // Trail effect
+          spawnParticles(this.x, this.y, this.color, 1, true);
+        }
+
+        onHit(enemy) {
+          // Apply damage
+          const isCrit = Math.random() < GS.player.stats.critChance;
+          const finalDmg =
+            this.damage *
+            GS.player.stats.might *
+            (isCrit ? GS.player.stats.critDmg : 1);
+
+          enemy.takeDamage(
+            finalDmg,
+            isCrit,
+            this.kb,
+            Math.atan2(this.vy, this.vx)
+          );
+
+          this.pierce--;
+          if (this.pierce < 0) {
+            this.active = false;
+            spawnParticles(this.x, this.y, this.color, 5);
+          }
+
+          if (GS.audio) GS.audio.sfxHit();
+        }
+      }
+
+      class BoomerangProj extends Projectile {
+        constructor(props) {
+          super(
+            props.x,
+            props.y,
+            props.r,
+            props.vx,
+            props.vy,
+            props.dmg,
+            999,
+            props.dur,
+            "#0ff",
+            props.kb
+          );
+          this.origX = props.x;
+          this.origY = props.y;
+          this.speed = Math.hypot(this.vx, this.vy);
+          this.angle = Math.atan2(this.vy, this.vx);
+          this.timer = 0;
+          this.returnTime = props.dur / 2;
+        }
+
+        update() {
+          this.timer += GS.dt;
+
+          // Velocity changes: Fast out, slow, fast back
+          let currentSpeed = this.speed * (1 - this.timer / this.returnTime);
+
+          this.x += Math.cos(this.angle) * currentSpeed * GS.dt;
+          this.y += Math.sin(this.angle) * currentSpeed * GS.dt;
+
+          Draw.rect(
+            this.x,
+            this.y,
+            this.r * 3,
+            this.r,
+            this.color,
+            this.timer * 15
+          );
+
+          this.duration -= GS.dt;
+          if (
+            this.duration <= 0 ||
+            (this.timer > this.returnTime &&
+              M.distSq(this.x, this.y, GS.player.x, GS.player.y) < 1600)
+          ) {
+            this.active = false;
+          }
+          this.hitList = []; // Reset hits every frame for piercing
+        }
+
+        draw() {
+          /* Handled in update for rotation */
+        }
+      }
+
+      // --- WEAPONS ---
+
+      class Weapon {
+        constructor(name, iconColor) {
+          this.name = name;
+          this.level = 0;
+          this.maxLevel = 8;
+          this.cooldown = 0;
+          this.iconColor = iconColor;
+
+          // Base stats (overridden by subclasses)
+          this.baseDmg = 10;
+          this.baseCd = 1.5;
+          this.baseSpd = 400;
+          this.baseDur = 2;
+          this.baseArea = 1;
+          this.baseAmount = 1;
+          this.basePierce = 0;
+          this.kb = 100;
+        }
+
+        get stats() {
+          // Combine base stats, weapon level multipliers, and player stats
+          const ps = GS.player.stats;
+          return {
+            dmg: this.baseDmg * (1 + this.level * 0.2),
+            cd: this.baseCd * (1 - this.level * 0.05) * ps.cooldown,
+            spd: this.baseSpd * (1 + this.level * 0.1) * ps.speedProj,
+            dur: this.baseDur * (1 + this.level * 0.1) * ps.duration,
+            area: this.baseArea * (1 + this.level * 0.15) * ps.area,
+            amount: this.baseAmount + Math.floor(this.level / 2) + ps.amount,
+            pierce: this.basePierce + Math.floor(this.level / 3),
+            kb: this.kb,
+          };
+        }
+
+        update() {
+          this.cooldown -= GS.dt;
+          if (this.cooldown <= 0) {
+            this.attack();
+            this.cooldown = this.stats.cd;
+          }
+        }
+
+        getNearestEnemy() {
+          let nearest = null;
+          let minDst = Infinity;
+          for (const e of GS.enemies) {
+            const d = M.distSq(GS.player.x, GS.player.y, e.x, e.y);
+            // Targeting range check (approx screen width)
+            if (d < C.WIDTH ** 2 && d < minDst) {
+              minDst = d;
+              nearest = e;
+            }
+          }
+          return nearest;
+        }
+
+        attack() {} // Implemented by subclasses
+
+        drawIcon(ctx, x, y, s) {
+          ctx.fillStyle = this.iconColor;
+          ctx.fillRect(x, y, s, s);
+          ctx.strokeStyle = "#fff";
+          ctx.strokeRect(x, y, s, s);
+        }
+
+        getDescription(nextLvl) {
+          return "Increases stats.";
+        }
+      }
+
+      // 1. Magic Projectile: Shoots nearest
+      class Wand extends Weapon {
+        constructor() {
+          super("Magic Wand", "#66ccff");
+          this.baseDmg = 10;
+          this.baseCd = 1.0;
+          this.baseSpd = 500;
+          this.kb = 150;
+        }
+
+        attack() {
+          const target = this.getNearestEnemy();
+          if (!target) {
+            this.cooldown = 0.1;
+            return;
+          } // Retry soon if no target
+
+          const s = this.stats;
+          if (GS.audio) GS.audio.sfxShoot();
+
+          for (let i = 0; i < s.amount; i++) {
+            setTimeout(() => {
+              if (GS.state !== "running") return;
+              const t = this.getNearestEnemy() || target; // Re-target
+              const a =
+                M.angle(GS.player.x, GS.player.y, t.x, t.y) + M.rand(-0.1, 0.1);
+              GS.projectiles.push(
+                new Projectile(
+                  GS.player.x,
+                  GS.player.y,
+                  8 * s.area,
+                  Math.cos(a) * s.spd,
+                  Math.sin(a) * s.spd,
+                  s.dmg,
+                  s.pierce,
+                  s.dur,
+                  "#66ccff",
+                  s.kb
+                )
+              );
+            }, i * 100); // stagger shots
+          }
+        }
+        getDescription() {
+          return "Fires magic missiles at nearest enemy.";
+        }
+      }
+
+      // 2. Orbiting Blade (Bible style)
+      class OrbitingBlade extends Weapon {
+        constructor() {
+          super("Orbit Blade", "#ffcc00");
+          this.baseDmg = 15;
+          this.baseCd = 3.0;
+          this.baseDur = 2.5;
+          this.baseArea = 1;
+          this.kb = 200;
+          this.activeBlades = [];
+          this.rotOffset = 0;
+        }
+
+        update() {
+          super.update();
+          this.rotOffset += GS.dt * 3; // rotation speed
+
+          // Manage active blade objects (not standard projectiles)
+          const s = this.stats;
+          const radius = 120 * s.area;
+
+          // Remove expired blades
+          this.activeBlades = this.activeBlades.filter((b) => b.life > 0);
+
+          // Update blade positions and collision
+          this.activeBlades.forEach((b, i) => {
+            b.life -= GS.dt;
+            const angle =
+              this.rotOffset + ((Math.PI * 2) / this.activeBlades.length) * i;
+            b.x = GS.player.x + Math.cos(angle) * radius;
+            b.y = GS.player.y + Math.sin(angle) * radius;
+
+            // Collision check
+            b.hitTimer -= GS.dt;
+            if (b.hitTimer <= 0) {
+              for (const e of GS.enemies) {
+                if (M.collides(b, e)) {
+                  const isCrit = Math.random() < GS.player.stats.critChance;
+                  const dmg =
+                    s.dmg *
+                    GS.player.stats.might *
+                    (isCrit ? GS.player.stats.critDmg : 1);
+                  e.takeDamage(dmg, isCrit, s.kb, angle);
+                  spawnParticles(e.x, e.y, "#ffcc00", 2, true);
+                  if (GS.audio) GS.audio.sfxHit();
+                }
+              }
+              b.hitTimer = 0.2; // hit frequency
+            }
+          });
+        }
+
+        attack() {
+          const s = this.stats;
+          this.activeBlades = [];
+          for (let i = 0; i < s.amount; i++) {
+            this.activeBlades.push({
+              x: 0,
+              y: 0,
+              r: 15 * s.area,
+              life: s.dur,
+              hitTimer: 0,
+            });
+          }
+          if (GS.audio) GS.audio.playTone(600, "sine", 0.5, 0.1);
+        }
+
+        draw() {
+          this.activeBlades.forEach((b) => {
+            Draw.rect(b.x, b.y, 20, 20, "#ffcc00", this.rotOffset * 2);
+          });
+        }
+        getDescription() {
+          return "Spawns blades that orbit you.";
+        }
+      }
+
+      // 3. Axe (Arcing projectile)
+      class Axe extends Weapon {
+        constructor() {
+          super("Heavy Axe", "#cc4444");
+          this.baseDmg = 40;
+          this.baseCd = 2.0;
+          this.baseSpd = 500;
+          this.basePierce = 99;
+          this.baseArea = 1.5;
+          this.kb = 400;
+        }
+
+        attack() {
+          const s = this.stats;
+          if (GS.audio) GS.audio.playTone(200, "square", 0.2, 0.2, -50);
+
+          for (let i = 0; i < s.amount; i++) {
+            const spread =
+              s.amount > 1 ? M.lerp(-0.5, 0.5, i / (s.amount - 1)) : 0;
+            // Simulate arc with gravity in Projectile update if needed, simple line for now but rotating
+            const p = new Projectile(
+              GS.player.x,
+              GS.player.y - 20,
+              15 * s.area,
+              Math.sin(spread) * 200,
+              -s.spd, // Mostly up
+              s.dmg,
+              s.pierce,
+              3,
+              "#cc4444",
+              s.kb
+            );
+            // Add custom gravity logic to this specific instance
+            p.vy_orig = p.vy;
+            p.t = 0;
+            p.ro = 0;
+            const origUp = p.update;
+            p.update = function () {
+              this.t += GS.dt;
+              this.vy += 800 * GS.dt; // gravity
+              this.x += this.vx * GS.dt;
+              this.y += this.vy * GS.dt;
+              this.ro += GS.dt * 10;
+              this.duration -= GS.dt;
+              if (this.y > GS.player.y + C.HEIGHT / 2) this.active = false;
+              this.hitList = []; // Hits once per frame per enemy
+            };
+            p.draw = function () {
+              Draw.rect(
+                this.x,
+                this.y,
+                this.r * 2,
+                this.r * 2,
+                this.color,
+                this.ro
+              );
+            };
+            GS.projectiles.push(p);
+          }
+        }
+        getDescription() {
+          return "Throws axes in a high arc. High Damage.";
+        }
+      }
+
+      // 4. Piercing Beam (Ray/Rect collision)
+      class Beam extends Weapon {
+        constructor() {
+          super("Laser Beam", "#ff66ff");
+          this.baseDmg = 8;
+          this.baseCd = 4.0;
+          this.baseDur = 1.5;
+          this.kb = 10;
+          this.firing = false;
+          this.fireTimer = 0;
+          this.targetAngle = 0;
+        }
+
+        update() {
+          super.update();
+          if (this.firing) {
+            this.fireTimer -= GS.dt;
+
+            // Determine beam rect
+            const w = C.WIDTH; // length
+            const h = 30 * this.stats.area; // thickness
+
+            // Get point far away
+            const ex = GS.player.x + Math.cos(this.targetAngle) * w;
+            const ey = GS.player.y + Math.sin(this.targetAngle) * w;
+
+            // Check collision line vs circles
+            // Simplified: check enemies close to line
+            if (this.fireTimer % 0.2 < GS.dt) {
+              // Hit every 0.2s
+              const s = this.stats;
+              const isCrit = Math.random() < GS.player.stats.critChance;
+              const dmg =
+                s.dmg *
+                GS.player.stats.might *
+                (isCrit ? GS.player.stats.critDmg : 1);
+
+              for (const e of GS.enemies) {
+                // Distance from point to line
+                const num = Math.abs(
+                  (ey - GS.player.y) * e.x -
+                    (ex - GS.player.x) * e.y +
+                    ex * GS.player.y -
+                    ey * GS.player.x
+                );
+                const den = Math.sqrt(
+                  (ey - GS.player.y) ** 2 + (ex - GS.player.x) ** 2
+                );
+                const dist = num / den;
+
+                // Check if "in front"
+                const dot =
+                  (e.x - GS.player.x) * (ex - GS.player.x) +
+                  (e.y - GS.player.y) * (ey - GS.player.y);
+
+                if (dist < e.r + h / 2 && dot > 0) {
+                  e.takeDamage(dmg, isCrit, s.kb, this.targetAngle);
+                  spawnParticles(e.x, e.y, "#ff66ff", 1, true);
+                }
+              }
+              if (GS.audio) GS.audio.playTone(100, "sawtooth", 0.1, 0.05);
+            }
+
+            if (this.fireTimer <= 0) this.firing = false;
+          }
+        }
+
+        attack() {
+          const t = this.getNearestEnemy();
+          if (!t) {
+            this.targetAngle = M.rand(0, Math.PI * 2);
+          } else {
+            this.targetAngle = M.angle(GS.player.x, GS.player.y, t.x, t.y);
+          }
+
+          this.firing = true;
+          this.fireTimer = this.stats.dur;
+          if (GS.audio) GS.audio.playTone(800, "sawtooth", 0.5, 0.1, -400);
+        }
+
+        draw() {
+          if (this.firing) {
+            const ctx = GS.ctx;
+            const w = C.WIDTH;
+            const h = 30 * this.stats.area * (0.5 + Math.random() * 0.5);
+
+            ctx.save();
+            ctx.translate(C.WIDTH / 2, C.HEIGHT / 2);
+            ctx.rotate(this.targetAngle);
+
+            // Core
+            ctx.fillStyle = "#ffffff";
+            ctx.fillRect(0, -h / 4, w, h / 2);
+
+            // Glow
+            ctx.fillStyle = "rgba(255, 100, 255, 0.5)";
+            ctx.fillRect(0, -h / 2, w, h);
+
+            ctx.restore();
+          }
+        }
+        getDescription() {
+          return "Fires a continuous beam through enemies.";
+        }
+      }
+
+      // 5. Boomerang
+      class Boomerang extends Weapon {
+        constructor() {
+          super("Cross", "#44ffaa");
+          this.baseDmg = 25;
+          this.baseCd = 2.5;
+          this.baseSpd = 700;
+          this.baseDur = 2.0;
+          this.baseArea = 1.2;
+          this.kb = 250;
+        }
+
+        attack() {
+          const t = this.getNearestEnemy();
+          let angle = t
+            ? M.angle(GS.player.x, GS.player.y, t.x, t.y)
+            : M.rand(0, Math.PI * 2);
+
+          const s = this.stats;
+          if (GS.audio) GS.audio.sfxShoot();
+
+          for (let i = 0; i < s.amount; i++) {
+            const a = angle + M.lerp(-0.3, 0.3, i / (s.amount || 1));
+            GS.projectiles.push(
+              new BoomerangProj({
+                x: GS.player.x,
+                y: GS.player.y,
+                r: 12 * s.area,
+                vx: Math.cos(a) * s.spd,
+                vy: Math.sin(a) * s.spd,
+                dmg: s.dmg,
+                dur: s.dur,
+                kb: s.kb,
+              })
+            );
+          }
+        }
+        getDescription() {
+          return "Throws crosses that return to you.";
+        }
+      }
+
+      // 6. Area Blast (Garlic style)
+      class Aura extends Weapon {
+        constructor() {
+          super("Garlic Aura", "#ffffff");
+          this.baseDmg = 5;
+          this.baseCd = 0.5;
+          this.baseArea = 1.0;
+          this.kb = 50;
+          this.pulse = 0;
+        }
+
+        attack() {
+          // Actually logic happens in update/collision loop for Aura type
+          // Just visual pulse here
+          this.pulse = 1;
+          const s = this.stats;
+          const r = 80 * s.area;
+
+          const isCrit = Math.random() < GS.player.stats.critChance;
+          const dmg =
+            s.dmg *
+            GS.player.stats.might *
+            (isCrit ? GS.player.stats.critDmg : 1);
+
+          for (const e of GS.enemies) {
+            if (M.distSq(GS.player.x, GS.player.y, e.x, e.y) < (r + e.r) ** 2) {
+              // Check if enemy can be hit by aura (add aura_timer to enemy)
+              if ((e.auraTimer || 0) <= 0) {
+                e.takeDamage(
+                  dmg,
+                  isCrit,
+                  s.kb,
+                  M.angle(GS.player.x, GS.player.y, e.x, e.y)
+                );
+                e.auraTimer = s.cd; // Use CD as hit rate
+              }
+            }
+          }
+        }
+
+        draw() {
+          if (this.level > 0) {
+            const r = 80 * this.stats.area;
+            this.pulse = Math.max(0, this.pulse - GS.dt * 2);
+            GS.ctx.globalAlpha = 0.1 + this.pulse * 0.2;
+            GS.ctx.fillStyle = "#fff";
+            GS.ctx.beginPath();
+            GS.ctx.arc(C.WIDTH / 2, C.HEIGHT / 2, r, 0, Math.PI * 2);
+            GS.ctx.fill();
+            GS.ctx.strokeStyle = "#fff";
+            GS.ctx.stroke();
+            GS.ctx.globalAlpha = 1;
+          }
+        }
+        getDescription() {
+          return "Damages enemies inside area.";
+        }
+      }
+
+      // Global definitions
+      const WEAPON_POOL = [Wand, OrbitingBlade, Axe, Beam, Boomerang, Aura];
+      const PASSIVE_POOL = [
+        {
+          id: "might",
+          name: "Spinach",
+          desc: "+10% Damage",
+          apply: (s) => (s.might += 0.1),
+          icon: "#f00",
+        },
+        {
+          id: "speed",
+          name: "Wings",
+          desc: "+10% Move Speed",
+          apply: (s) => (s.moveSpeed += 20),
+          icon: "#fff",
+        },
+        {
+          id: "area",
+          name: "Candelabdor",
+          desc: "+10% Area",
+          apply: (s) => (s.area += 0.1),
+          icon: "#ff0",
+        },
+        {
+          id: "cd",
+          name: "Empty Tome",
+          desc: "-8% Cooldown",
+          apply: (s) => (s.cooldown *= 0.92),
+          icon: "#00f",
+        },
+        {
+          id: "amount",
+          name: "Duplicator",
+          desc: "+1 Projectile",
+          apply: (s) => (s.amount += 1),
+          icon: "#0ff",
+        },
+        {
+          id: "magnet",
+          name: "Attractorb",
+          desc: "+30% Pickup Range",
+          apply: (s) => (s.magnet *= 1.3),
+          icon: "#a0a",
+        },
+        {
+          id: "health",
+          name: "Hollow Heart",
+          desc: "+20% Max HP",
+          apply: (s) => {
+            s.maxHp *= 1.2;
+            GS.player.hp += GS.player.maxHp * 0.2;
+          },
+          icon: "#b33",
+        },
+        {
+          id: "regen",
+          name: "Pummarola",
+          desc: "+0.5 HP/s Recovery",
+          apply: (s) => (s.regen += 0.5),
+          icon: "#f88",
+        },
+      ];
+
+      // --- ACTORS ---
+
+      class Player extends Entity {
+        constructor() {
+          super(0, 0, 15);
+
+          // Core Stats
+          this.baseStats = {
+            maxHp: 100,
+            moveSpeed: 200,
+            magnet: 100,
+            might: 1,
+            area: 1,
+            speedProj: 1,
+            duration: 1,
+            amount: 0,
+            cooldown: 1,
+            luck: 1,
+            critChance: 0.05,
+            critDmg: 2.0,
+            armor: 0,
+            regen: 0,
+          };
+
+          // Current Stats (mutable by passives)
+          this.stats = { ...this.baseStats };
+
+          this.hp = this.stats.maxHp;
+          this.xp = 0;
+          this.level = 1;
+          this.nextLevelXp = 5;
+
+          this.weapons = [];
+          this.passives = {}; // id: level
+
+          this.invulnTimer = 0;
+          this.regenTimer = 0;
+          this.facing = 1; // 1 right, -1 left
+
+          // Give starting weapon
+          this.addWeapon(new Wand());
+        }
+
+        update() {
+          // Movement
+          let dx = 0,
+            dy = 0;
+          if (GS.input.up) dy -= 1;
+          if (GS.input.down) dy += 1;
+          if (GS.input.left) dx -= 1;
+          if (GS.input.right) dx += 1;
+
+          if (dx !== 0 && dy !== 0) {
+            const invSqrt2 = 0.7071;
+            dx *= invSqrt2;
+            dy *= invSqrt2;
+          }
+
+          this.x += dx * this.stats.moveSpeed * GS.dt;
+          this.y += dy * this.stats.moveSpeed * GS.dt;
+
+          if (dx !== 0) this.facing = Math.sign(dx);
+
+          // Update Camera
+          GS.camera.x = M.lerp(GS.camera.x, this.x, 10 * GS.dt);
+          GS.camera.y = M.lerp(GS.camera.y, this.y, 10 * GS.dt);
+
+          // Weapons
+          this.weapons.forEach((w) => w.update());
+
+          // Regen
+          if (this.hp < this.stats.maxHp && this.stats.regen > 0) {
+            this.regenTimer += GS.dt;
+            if (this.regenTimer >= 1) {
+              this.hp = Math.min(this.stats.maxHp, this.hp + this.stats.regen);
+              this.regenTimer = 0;
+              GS.damageTexts.push(
+                new DamageText(this.x, this.y, this.stats.regen, false)
+              );
+              GS.damageTexts[GS.damageTexts.length - 1].color = "#0f0";
+            }
+          }
+
+          // Invulnerability
+          if (this.invulnTimer > 0) this.invulnTimer -= GS.dt;
+
+          // Bounds check (world is infinite, but let's keep numbers sane)
+          if (Math.abs(this.x) > 50000) this.x = 0;
+          if (Math.abs(this.y) > 50000) this.y = 0;
+        }
+
+        draw() {
+          // Weapons that need drawing (aura, blades)
+          this.weapons.forEach((w) => {
+            if (w.draw) w.draw();
+          });
+
+          // Player Sprite
+          if (this.invulnTimer > 0 && Math.floor(GS.time * 20) % 2 === 0)
+            return; // Flash
+
+          // Body
+          Draw.circle(this.x, this.y, this.r, C.COLORS.player, "#fff", 2);
+          // Direction indicator
+          const cx = C.WIDTH / 2;
+          const cy = C.HEIGHT / 2;
+          GS.ctx.fillStyle = "#fff";
+          GS.ctx.fillRect(
+            cx + (this.r - 5) * this.facing,
+            cy - 5,
+            8 * this.facing,
+            4
+          );
+
+          // HP Bar underneath
+          const bw = 40,
+            bh = 6;
+          GS.ctx.fillStyle = "#000";
+          GS.ctx.fillRect(cx - bw / 2, cy + this.r + 5, bw, bh);
+          GS.ctx.fillStyle = "#0f0";
+          GS.ctx.fillRect(
+            cx - bw / 2 + 1,
+            cy + this.r + 6,
+            (bw - 2) * (this.hp / this.stats.maxHp),
+            bh - 2
+          );
+        }
+
+        takeDamage(amount) {
+          if (this.invulnTimer > 0 || GS.state !== "running") return;
+
+          const actualDmg = Math.max(1, amount - this.stats.armor);
+          this.hp -= actualDmg;
+          this.invulnTimer = 0.2;
+          GS.screenShake = 5;
+
+          GS.damageTexts.push(new DamageText(this.x, this.y, actualDmg, false));
+          GS.damageTexts[GS.damageTexts.length - 1].color = "#f00";
+
+          if (GS.audio) GS.audio.sfxHurt();
+
+          if (this.hp <= 0) {
+            gameOver();
+          }
+        }
+
+        gainXp(amount) {
+          this.xp += amount;
+          if (this.xp >= this.nextLevelXp) {
+            this.xp -= this.nextLevelXp;
+            this.levelUp();
+          }
+          updateHud();
+        }
+
+        levelUp() {
+          this.level++;
+          // XP curve: Base increases, linear multiplier
+          this.nextLevelXp = Math.floor(
+            5 + this.level * 10 * (1 + this.level * 0.05)
+          );
+
+          if (GS.audio) GS.audio.sfxLevelUp();
+
+          // Present Choices
+          GS.state = "levelup";
+          generateUpgrades();
+        }
+
+        addWeapon(weaponInstance) {
+          this.weapons.push(weaponInstance);
+          weaponInstance.level = 1;
+        }
+      }
+
+      class Enemy extends Entity {
+        constructor(typeConfig, x, y) {
+          super(x, y, typeConfig.r);
+          this.hp = typeConfig.hp * (1 + GS.time / 600); // Scales with time
+          this.maxHp = this.hp;
+          this.speed = typeConfig.speed;
+          this.damage = typeConfig.dmg;
+          this.xp = typeConfig.xp;
+          this.color = typeConfig.color;
+          this.kbResist = typeConfig.kbResist || 0;
+
+          this.vx = 0;
+          this.vy = 0;
+          this.flash = 0;
+          this.auraTimer = 0; // for DOT effects
+        }
+
+        update() {
+          // Move towards player
+          const angle = M.angle(this.x, this.y, GS.player.x, GS.player.y);
+
+          // Avoidance (boids-lite)
+          let ax = 0,
+            ay = 0;
+          for (const other of GS.enemies) {
+            if (other === this) continue;
+            const dSq = M.distSq(this.x, this.y, other.x, other.y);
+            if (dSq < (this.r + other.r + 5) ** 2) {
+              const a = M.angle(other.x, other.y, this.x, this.y);
+              ax += Math.cos(a) * 100;
+              ay += Math.sin(a) * 100;
+            }
+          }
+
+          this.vx = M.lerp(
+            this.vx,
+            Math.cos(angle) * this.speed + ax,
+            5 * GS.dt
+          );
+          this.vy = M.lerp(
+            this.vy,
+            Math.sin(angle) * this.speed + ay,
+            5 * GS.dt
+          );
+
+          this.x += this.vx * GS.dt;
+          this.y += this.vy * GS.dt;
+
+          // Hit player
+          if (M.collides(this, GS.player)) {
+            GS.player.takeDamage(this.damage);
+          }
+
+          if (this.flash > 0) this.flash -= GS.dt;
+          if (this.auraTimer > 0) this.auraTimer -= GS.dt;
+
+          // Despawn if too far
+          if (
+            M.distSq(this.x, this.y, GS.player.x, GS.player.y) >
+            (C.WIDTH + 200) ** 2
+          ) {
+            this.active = false;
+          }
+        }
+
+        draw() {
+          const col = this.flash > 0 ? "#fff" : this.color;
+          Draw.circle(this.x, this.y, this.r, col, "#000", 2);
+
+          // Simple face
+          const cx = this.x - GS.camera.x + C.WIDTH / 2;
+          const cy = this.y - GS.camera.y + C.HEIGHT / 2;
+          if (
+            cx > -this.r &&
+            cx < C.WIDTH + this.r &&
+            cy > -this.r &&
+            cy < C.HEIGHT + this.r
+          ) {
+            GS.ctx.fillStyle = "#000";
+            const dir = Math.sign(this.vx);
+            GS.ctx.fillRect(cx + 4 * dir, cy - 4, 2, 2);
+            GS.ctx.fillRect(cx + 10 * dir, cy - 4, 2, 2);
+          }
+        }
+
+        takeDamage(amount, isCrit, kb, angle) {
+          this.hp -= amount;
+          this.flash = 0.1;
+          GS.damageTexts.push(new DamageText(this.x, this.y, amount, isCrit));
+          spawnParticles(this.x, this.y, this.color, 1, true);
+
+          // Knockback
+          const kbf = Math.max(0, kb - this.kbResist);
+          this.x += Math.cos(angle) * kbf * GS.dt;
+          this.y += Math.sin(angle) * kbf * GS.dt;
+          // Also dampen velocity
+          this.vx = 0;
+          this.vy = 0;
+
+          if (this.hp <= 0) this.die();
+        }
+
+        die() {
+          this.active = false;
+          GS.kills++;
+          spawnParticles(this.x, this.y, this.color, 8);
+          GS.gems.push(new ExperienceOrb(this.x, this.y, this.xp));
+          updateHud();
+        }
+      }
+
+      // Enemy Definitions
+      const E_DEFS = [
+        { r: 10, hp: 5, speed: 120, dmg: 5, xp: 1, color: C.COLORS.e1 }, // Bat
+        { r: 12, hp: 15, speed: 80, dmg: 8, xp: 2, color: C.COLORS.e2 }, // Zombie
+        { r: 12, hp: 30, speed: 90, dmg: 10, xp: 3, color: C.COLORS.e3 }, // Skeleton
+        {
+          r: 10,
+          hp: 20,
+          speed: 150,
+          dmg: 12,
+          xp: 4,
+          color: C.COLORS.e4,
+          kbResist: 50,
+        }, // Ghost
+        {
+          r: 20,
+          hp: 200,
+          speed: 40,
+          dmg: 20,
+          xp: 20,
+          color: C.COLORS.e5,
+          kbResist: 200,
+        }, // Golem (Boss-lite)
+      ];
+
+      // --- SYSTEMS LOGIC ---
+
+      function spawnEnemies() {
+        // Spawn rate increases with time
+        const mins = GS.time / 60;
+        const spawnRate = 0.5 + mins * 0.5; // enemies per fetch
+
+        if (Math.random() < spawnRate) {
+          // Pick type based on time
+          let typeIdx = 0;
+          if (mins > 1) typeIdx = M.randInt(0, 1);
+          if (mins > 3) typeIdx = M.randInt(0, 2);
+          if (mins > 5) typeIdx = M.randInt(0, 3);
+          if (mins > 10 && Math.random() < 0.05) typeIdx = 4; // Rare golem
+
+          // Spawn position just outside screen
+          const angle = M.rand(0, Math.PI * 2);
+          const dist = Math.sqrt((C.WIDTH / 2) ** 2 + (C.HEIGHT / 2) ** 2) + 50;
+          const x = GS.player.x + Math.cos(angle) * dist;
+          const y = GS.player.y + Math.sin(angle) * dist;
+
+          GS.enemies.push(new Enemy(E_DEFS[typeIdx], x, y));
+        }
+
+        // Waves (Large groups periodically)
+        if (GS.frameCount % (60 * 60) === 0 && GS.time > 10) {
+          // Every minute
+          const angleBase = M.rand(0, Math.PI * 2);
+          const count = 20 + Math.floor(mins * 5);
+          for (let i = 0; i < count; i++) {
+            const dist = C.WIDTH / 2 + 100 + M.rand(0, 100);
+            const a = angleBase + M.rand(-0.5, 0.5);
+            GS.enemies.push(
+              new Enemy(
+                E_DEFS[Math.min(2, Math.floor(mins / 2))],
+                GS.player.x + Math.cos(a) * dist,
+                GS.player.y + Math.sin(a) * dist
+              )
+            );
+          }
+        }
+      }
+
+      function checkCollisions() {
+        // Projectile vs Enemy
+        for (const p of GS.projectiles) {
+          for (const e of GS.enemies) {
+            if (p.hitList.includes(e)) continue;
+
+            let hit = false;
+            // Treat beams differently (they are long rects usually handled in weapon update,
+            // but if projectile based beam exist)
+            if (M.collides(p, e)) {
+              hit = true;
+            }
+
+            if (hit) {
+              p.onHit(e);
+              p.hitList.push(e);
+              if (!p.active) break; // stop checking enemies if projectile died
+            }
+          }
+        }
+      }
+
+      // --- UPGRADE SYSTEM ---
+
+      function generateUpgrades() {
+        const container = document.getElementById("upgradeContainer");
+        container.innerHTML = "";
+        document.getElementById("levelUpScreen").classList.remove("hidden");
+
+        let options = [];
+
+        // 1. Existing Weapons (Upgrade)
+        GS.player.weapons.forEach((w) => {
+          if (w.level < w.maxLevel) {
+            options.push({ type: "weapon_up", obj: w });
+          }
+        });
+
+        // 2. New Weapons (if slots avail - max 6)
+        if (GS.player.weapons.length < 6) {
+          WEAPON_POOL.forEach((WClass) => {
+            // Check if player already has instance of this class
+            if (!GS.player.weapons.some((w) => w instanceof WClass)) {
+              options.push({ type: "weapon_new", cls: WClass });
+            }
+          });
+        }
+
+        // 3. Passives
+        PASSIVE_POOL.forEach((p) => {
+          const lvl = GS.player.passives[p.id] || 0;
+          if (lvl < 5) {
+            options.push({ type: "passive", def: p, lvl: lvl });
+          }
+        });
+
+        // Fallback: Heal or Gold (just heal for now)
+        if (options.length === 0) {
+          options.push({ type: "heal" });
+        }
+
+        // Shuffle and pick 3 (or 4 with luck)
+        options.sort(() => Math.random() - 0.5);
+        const choices = options.slice(
+          0,
+          Math.min(3 + (GS.player.stats.luck > 1.2 ? 1 : 0), options.length)
+        );
+
+        // Render Cards
+        choices.forEach((choice) => {
+          const card = document.createElement("div");
+          card.className = "upgrade-card";
+
+          let title, desc, typeStr, iconCol;
+          let isNew = false;
+
+          if (choice.type === "weapon_up") {
+            title = choice.obj.name + " (Lv " + (choice.obj.level + 1) + ")";
+            desc = choice.obj.getDescription();
+            typeStr = "WEAPON UPGRADE";
+            iconCol = choice.obj.iconColor;
+          } else if (choice.type === "weapon_new") {
+            const temp = new choice.cls();
+            title = temp.name;
+            desc = temp.getDescription();
+            typeStr = "NEW WEAPON";
+            iconCol = temp.iconColor;
+            isNew = true;
+          } else if (choice.type === "passive") {
+            title = choice.def.name + " (Lv " + (choice.lvl + 1) + ")";
+            desc = choice.def.desc;
+            typeStr = "PASSIVE";
+            iconCol = choice.def.icon;
+            if (choice.lvl === 0) isNew = true;
+          } else {
+            title = "Floor Chicken";
+            desc = "Heal 30 HP";
+            typeStr = "CONSUMABLE";
+            iconCol = "#f88";
+          }
+
+          card.innerHTML = `
+            <div class="upgrade-icon" style="background:${iconCol}"></div>
+            <div class="upgrade-title">${title}</div>
+            <div class="upgrade-type">${typeStr}</div>
+            <div class="upgrade-desc">${desc}</div>
+            ${isNew ? '<div class="new-tag">NEW!</div>' : ""}
+        `;
+
+          card.onclick = () => selectUpgrade(choice);
+          container.appendChild(card);
+        });
+      }
+
+      function selectUpgrade(choice) {
+        if (GS.audio) GS.audio.playTone(880, "sine", 0.1, 0.5);
+
+        if (choice.type === "weapon_up") {
+          choice.obj.level++;
+        } else if (choice.type === "weapon_new") {
+          GS.player.addWeapon(new choice.cls());
+        } else if (choice.type === "passive") {
+          choice.def.apply(GS.player.stats);
+          GS.player.passives[choice.def.id] =
+            (GS.player.passives[choice.def.id] || 0) + 1;
+        } else if (choice.type === "heal") {
+          GS.player.hp = Math.min(GS.player.stats.maxHp, GS.player.hp + 30);
+        }
+
+        document.getElementById("levelUpScreen").classList.add("hidden");
+        GS.state = "running";
+        GS.lastTime = performance.now(); // reset timer to prevent large dt jump
+      }
+
+      // --- MAIN GAME LOOP ---
+
+      function gameLoop(timestamp) {
+        requestAnimationFrame(gameLoop);
+
+        // Delta time calculation
+        const rawDt = (timestamp - GS.lastTime) / 1000;
+        GS.lastTime = timestamp;
+        // Cap dt to prevent spiraling on lag (max 0.1s)
+        GS.dt = Math.min(rawDt, 0.1);
+
+        if (GS.state !== "running") {
+          if (GS.state !== "paused" && GS.state !== "levelup") {
+            render(); // keep rendering last frame background
+          }
+          return;
+        }
+
+        GS.time += GS.dt;
+        GS.frameCount++;
+
+        update();
+        render();
+        updateHud();
+
+        // Win Condition
+        if (GS.time >= C.TARGET_TIME) {
+          victory();
+        }
+      }
+
+      function update() {
+        // Spawning
+        spawnEnemies();
+
+        // Entity Updates
+        GS.player.update();
+
+        // Batch update and clean
+        const updateEntity = (e) => {
+          e.update();
+          return e.active;
+        };
+
+        GS.enemies = GS.enemies.filter(updateEntity);
+        GS.projectiles = GS.projectiles.filter(updateEntity);
+        GS.gems = GS.gems.filter(updateEntity);
+        GS.particles = GS.particles.filter(updateEntity);
+        GS.damageTexts = GS.damageTexts.filter(updateEntity);
+
+        // Collisions
+        checkCollisions();
+
+        // Screenshake decay
+        if (GS.screenShake > 0) GS.screenShake -= GS.dt * 20;
+      }
+
+      function render() {
+        // Screenshake apply
+        GS.ctx.save();
+        if (GS.screenShake > 0) {
+          GS.ctx.translate(
+            M.rand(-GS.screenShake, GS.screenShake),
+            M.rand(-GS.screenShake, GS.screenShake)
+          );
+        }
+
+        // Clear & Background
+        Draw.background();
+
+        // Draw entities (layered)
+        GS.gems.forEach((e) => e.draw());
+        GS.particles.forEach((e) => e.draw());
+
+        // Draw enemies sorted by Y for faux depth
+        GS.enemies.sort((a, b) => a.y - b.y);
+        GS.enemies.forEach((e) => e.draw());
+
+        GS.player.draw();
+        GS.projectiles.forEach((e) => e.draw());
+        GS.damageTexts.forEach((e) => e.draw());
+
+        // Vignette Overlay
+        const grad = GS.ctx.createRadialGradient(
+          C.WIDTH / 2,
+          C.HEIGHT / 2,
+          C.HEIGHT / 4,
+          C.WIDTH / 2,
+          C.HEIGHT / 2,
+          C.WIDTH / 1.5
+        );
+        grad.addColorStop(0, "transparent");
+        grad.addColorStop(1, "rgba(0,0,0,0.7)");
+        GS.ctx.fillStyle = grad;
+        GS.ctx.fillRect(0, 0, C.WIDTH, C.HEIGHT);
+
+        GS.ctx.restore();
+      }
+
+      // --- UI & CONTROL FLOW ---
+
+      function updateHud() {
+        const p = GS.player;
+        // XP Bar
+        const xpPct = (p.xp / p.nextLevelXp) * 100;
+        document.getElementById("xpBar").style.width = `${xpPct}%`;
+        document.getElementById("levelText").innerText = `LV ${p.level}`;
+
+        // Top Info
+        document.getElementById("timer").innerText = M.formatTime(GS.time);
+        document.getElementById("killCount").innerText = `💀 ${GS.kills}`;
+
+        // Timer color change near end
+        if (C.TARGET_TIME - GS.time < 60) {
+          document.getElementById("timer").style.color =
+            GS.frameCount % 60 < 30 ? "#f00" : "#fff";
+        }
+      }
+
+      function initGame() {
+        GS.player = new Player();
+        GS.enemies = [];
+        GS.projectiles = [];
+        GS.gems = [];
+        GS.particles = [];
+        GS.damageTexts = [];
+        GS.time = 0;
+        GS.kills = 0;
+        GS.camera = { x: 0, y: 0 };
+
+        if (!GS.audio) GS.audio = new AudioSys();
+        GS.audio.ctx.resume();
+
+        GS.state = "running";
+        GS.lastTime = performance.now();
+
+        document
+          .querySelectorAll(".overlay")
+          .forEach((el) => el.classList.add("hidden"));
+        requestAnimationFrame(gameLoop);
+      }
+
+      function togglePause() {
+        if (GS.state === "running") {
+          GS.state = "paused";
+          document.getElementById("pauseMenu").classList.remove("hidden");
+
+          // Show stats
+          let html = "<h3>Weapons</h3>";
+          GS.player.weapons.forEach(
+            (w) =>
+              (html += `<p style="color:${w.iconColor}">${w.name}: Lv ${w.level}</p>`)
+          );
+          html += "<h3>Stats</h3>";
+          const s = GS.player.stats;
+          html += `<p>Might: ${Math.round(s.might * 100)}%</p>`;
+          html += `<p>Speed: ${s.moveSpeed}</p>`;
+          html += `<p>Cooldown: ${Math.round(s.cooldown * 100)}%</p>`;
+
+          document.getElementById("statsContainer").innerHTML = html;
+        } else if (GS.state === "paused") {
+          GS.state = "running";
+          document.getElementById("pauseMenu").classList.add("hidden");
+          GS.lastTime = performance.now();
+        }
+      }
+
+      function gameOver() {
+        GS.state = "gameover";
+        if (GS.audio) GS.audio.sfxDie();
+
+        document.getElementById("goTime").innerText = `Survived: ${M.formatTime(
+          GS.time
+        )}`;
+        document.getElementById(
+          "goKills"
+        ).innerText = `Enemies Defeated: ${GS.kills}`;
+        document.getElementById(
+          "goLevel"
+        ).innerText = `Level Reached: ${GS.player.level}`;
+
+        setTimeout(() => {
+          document.getElementById("gameOverScreen").classList.remove("hidden");
+        }, 1000);
+      }
+
+      function victory() {
+        GS.state = "victory";
+        // Kill all enemies
+        GS.enemies.forEach((e) => spawnParticles(e.x, e.y, e.color, 10));
+        GS.enemies = [];
+
+        document.getElementById(
+          "vKills"
+        ).innerText = `Total Kills: ${GS.kills}`;
+        document.getElementById("victoryScreen").classList.remove("hidden");
+      }
+
+      // --- INPUT ---
+
+      window.addEventListener("keydown", (e) => {
+        const k = e.key.toLowerCase();
+        if ("wasd".includes(k) || k.startsWith("arrow")) {
+          if (k === "w" || k === "arrowup") GS.input.up = true;
+          if (k === "s" || k === "arrowdown") GS.input.down = true;
+          if (k === "a" || k === "arrowleft") GS.input.left = true;
+          if (k === "d" || k === "arrowright") GS.input.right = true;
+        }
+
+        if (k === "p" || k === "escape") {
+          if (GS.state === "running" || GS.state === "paused") togglePause();
+        }
+
+        // DEBUG: Instant level up
+        // if (k === 'l' && GS.state === 'running') GS.player.gainXp(GS.player.nextLevelXp);
+      });
+
+      window.addEventListener("keyup", (e) => {
+        const k = e.key.toLowerCase();
+        if ("wasd".includes(k) || k.startsWith("arrow")) {
+          if (k === "w" || k === "arrowup") GS.input.up = false;
+          if (k === "s" || k === "arrowdown") GS.input.down = false;
+          if (k === "a" || k === "arrowleft") GS.input.left = false;
+          if (k === "d" || k === "arrowright") GS.input.right = false;
+        }
+      });
+
+      // UI Buttons
+      document.getElementById("btnStart").onclick = initGame;
+      document.getElementById("btnRestart").onclick = initGame;
+      document.getElementById("btnRestartVic").onclick = initGame;
+      document.getElementById("btnResume").onclick = togglePause;
+
+      // Initial render to background
+      Draw.background();
+    </script>
+  </body>
+</html>
