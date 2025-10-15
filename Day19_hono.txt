@@ -81,3 +81,30 @@ export const AppDataSource = new DataSource({
   entities: [path.join(__dirname, "/entities/**/*.{ts,js}")],
   ssl: true,
 });
+
+
+* tsconfig.json
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "NodeNext",
+    "noUnusedLocals": false, // 사용되지 않는 지역 변수 경고 끄기
+    "noUnusedParameters": false, // 사용되지 않는 함수 매개변수 경고 끄기
+
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    "strict": true,
+    "verbatimModuleSyntax": true,
+    "skipLibCheck": true,
+    "types": ["node"],
+    "jsx": "react-jsx",
+    "jsxImportSource": "hono/jsx",
+    "outDir": "./dist"
+  },
+  "exclude": ["node_modules"]
+}
+
