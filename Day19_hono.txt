@@ -91,7 +91,7 @@ export const AppDataSource = new DataSource({
     "noUnusedLocals": false, // 사용되지 않는 지역 변수 경고 끄기
     "noUnusedParameters": false, // 사용되지 않는 함수 매개변수 경고 끄기
 
-    "moduleResolution": "node",
+    "moduleResolution": "NodeNext",
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
