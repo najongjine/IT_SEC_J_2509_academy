@@ -21,3 +21,20 @@ tsconfig
   },
   "exclude": ["node_modules"]
 }
+
+
+
+app.get("/test1", (c) => {
+  let result: { success: boolean; data: any; msg: string } = {
+    success: true,
+    data: null,
+    msg: ``,
+  };
+  try {
+    let q = c?.req?.query("q");
+    result.data = q;
+    return c.json(result);
+  } catch (error: any) {
+    return c.json(result);
+  }
+});
