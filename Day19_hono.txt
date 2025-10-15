@@ -50,4 +50,4 @@ DB_USERNAME=neondb_owner
 DB_PASSWORD= 뭐뭐
 DB_NAME=neondb
 
-npm i cross-env dotenv pg reflect-metadata rimraf typeorm zod
+* npm i cross-env dotenv pg reflect-metadata rimraf typeorm zod
