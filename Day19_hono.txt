@@ -4,7 +4,7 @@ npm create hono@latest 내프로잭트 이름
 index.ts
 요게 핵심. 요기서 코딩하고 논다고 생각하시면 되요
 
-
+tsconfig
 {
   "compilerOptions": {
     "target": "ESNext",
