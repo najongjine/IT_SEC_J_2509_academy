@@ -44,3 +44,8 @@ DB 연결이 서버에서 제일 어려워요
 * npm i -g typeorm-model-generator
 
 * .env.development   파일 루트에 만들기
+DB_HOST= 뭐뭐
+DB_PORT=5432
+DB_USERNAME=neondb_owner
+DB_PASSWORD= 뭐뭐
+DB_NAME=neondb
