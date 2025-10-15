@@ -180,3 +180,8 @@ serve(
   }
 );
 
+
+
+
+* model generator 돌리기
+typeorm-model-generator -h 뭐뭐 -d neondb -u neondb_owner -x 뭐뭐 -e postgres -o ./src --ssl
