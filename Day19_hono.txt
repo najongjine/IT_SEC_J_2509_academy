@@ -1,0 +1,23 @@
+npm create hono@latest 내프로잭트 이름
+- Scaffolding. 프로젝트 생성 자동
+
+index.ts
+요게 핵심. 요기서 코딩하고 논다고 생각하시면 되요
+
+
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "NodeNext",
+    "noUnusedLocals": false, // 사용되지 않는 지역 변수 경고 끄기
+    "noUnusedParameters": false, // 사용되지 않는 함수 매개변수 경고 끄기
+    "strict": true,
+    "verbatimModuleSyntax": true,
+    "skipLibCheck": true,
+    "types": ["node"],
+    "jsx": "react-jsx",
+    "jsxImportSource": "hono/jsx",
+    "outDir": "./dist"
+  },
+  "exclude": ["node_modules"]
+}
