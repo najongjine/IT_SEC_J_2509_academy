@@ -38,3 +38,7 @@ app.get("/test1", (c) => {
     return c.json(result);
   }
 });
+
+
+DB 연결이 서버에서 제일 어려워요
+* npm i -g typeorm-model-generator
