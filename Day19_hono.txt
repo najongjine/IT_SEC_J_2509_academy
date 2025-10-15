@@ -42,3 +42,5 @@ app.get("/test1", (c) => {
 
 DB 연결이 서버에서 제일 어려워요
 * npm i -g typeorm-model-generator
+
+* .env.development   파일 루트에 만들기
