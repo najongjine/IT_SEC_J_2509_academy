@@ -6,3 +6,6 @@ npm create hono@latest itsec_hono_2509
 - my-app 이걸 내가 원하는 이름으로
 
 npm i cross-env dotenv pg reflect-metadata rimraf typeorm zod
+
+typeorm-model-generator -h 뭐뭐 -d neondb -u neondb_owner -x 뭐뭐 -e postgres -o ./src --ssl
+- model generator 돌리기
