@@ -1,1 +1,6 @@
 npm install -g @google/gemini-cli@latest
+- gemini cli
+
+npm create hono@latest itsec_hono_2509
+- nodejs hono 서버 생성 명령어
+- my-app 이걸 내가 원하는 이름으로
