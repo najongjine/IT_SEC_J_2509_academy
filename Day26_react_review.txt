@@ -21,3 +21,17 @@ npm install react-router-dom
 
 "noUnusedLocals": false,
 "noUnusedParameters": false,
+
+
+
+ return (
+    <>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </>
+  );
