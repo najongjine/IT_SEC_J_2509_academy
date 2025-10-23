@@ -1,0 +1,14 @@
+// TypeORM의 transaction을 사용하여 데이터베이스 작업을 묶습니다.
+    const deleteResult = await AppDataSource.manager.transaction(async (transactionalEntityManager) => {
+        // Raw SQL 쿼리를 사용하여 데이터 삭제
+        // transactionalEntityManager를 사용하여 트랜잭션 내에서 쿼리 실행
+        const rawDeleteResult = await transactionalEntityManager.query(
+            `DELETE FROM t_board WHERE id = ?`,
+            [id] // 쿼리 파라미터를 배열로 전달하여 SQL Injection 방지
+        );
+
+        // 여기서는 삭제 작업만 있으므로 추가적인 복잡한 로직은 없습니다.
+        // 만약 관련 테이블의 데이터도 삭제해야 한다면 이 블록 내에서 실행하면 됩니다.
+
+        return rawDeleteResult;
+    });
