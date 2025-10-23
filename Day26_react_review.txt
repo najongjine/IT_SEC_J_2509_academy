@@ -35,3 +35,6 @@ npm install react-router-dom
       </BrowserRouter>
     </>
   );
+
+
+  https://tailwindcss.com/docs/installation/using-vite
