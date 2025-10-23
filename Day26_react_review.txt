@@ -12,3 +12,7 @@
 
         return rawDeleteResult;
     });
+
+
+
+npm create vite@latest itsec_react_2509 -- --template react-ts
