@@ -1,2 +1,8 @@
 npm install hono jsonwebtoken bcrypt
 npm install -D typescript ts-node @types/node @types/jsonwebtoken @types/bcrypt
+
+ALTER TABLE t_user
+ADD COLUMN real_name VARCHAR;
+
+ALTER TABLE t_user
+ADD COLUMN profile_url VARCHAR;
