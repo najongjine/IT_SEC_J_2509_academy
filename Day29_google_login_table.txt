@@ -18,3 +18,8 @@ ADD COLUMN provider_id VARCHAR DEFAULT '';
 
 ALTER TABLE t_user
 ADD COLUMN metadata VARCHAR DEFAULT '';
+
+
+
+https://wildojisan.tistory.com/31
+- zustland 설치하기
