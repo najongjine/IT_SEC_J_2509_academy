@@ -1,13 +1,13 @@
 CREATE TABLE t_board_imgs (
     id SERIAL PRIMARY KEY,
-    imgurl VARCHAR NOT NULL DEFAULT '',
-    original_filename VARCHAR NOT NULL DEFAULT '',
-    unique_filename VARCHAR NOT NULL DEFAULT '',
-    minetype VARCHAR NOT NULL DEFAULT '',
+    imgurl VARCHAR DEFAULT '',
+    original_filename VARCHAR DEFAULT '',
+    unique_filename VARCHAR DEFAULT '',
+    minetype VARCHAR DEFAULT '',
     filesize INT DEFAULT 0,
-    board_id INT4 NOT NULL,
-    created_dt TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_dt TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    board_id INT4 ,
+    created_dt TIMESTAMPTZ DEFAULT NOW(),
+    updated_dt TIMESTAMPTZ DEFAULT NOW(),
     CONSTRAINT fk_board
         FOREIGN KEY (board_id)
         REFERENCES t_board (id)
