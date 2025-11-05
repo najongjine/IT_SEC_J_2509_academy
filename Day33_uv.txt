@@ -10,3 +10,5 @@ requirements.txt 파일 안에 내가 설치할 모듈 이름들 적기
 (단, torch cuda 는 이렇게 설치 안됨.)
 
 uv pip install -r requirements.txt
+
+uv run python mycode.py
