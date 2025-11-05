@@ -12,3 +12,7 @@ requirements.txt 파일 안에 내가 설치할 모듈 이름들 적기
 uv pip install -r requirements.txt
 
 uv run python mycode.py
+
+
+
+http://192.168.219.222:3000/api/stream/img?data=eyJkaXIiOiJEOlxcdGVtcF9zYXZlZmlsZVxcMTc2MjMwNTMwMjgyOS02ZWNkZGEzYS1iYWRjLTRlNzEtYWUxZC1hNmJmYzJjNjU1NzYucG5nIiwibWltZXR5cGUiOiJpbWFnZS9wbmcifQ
