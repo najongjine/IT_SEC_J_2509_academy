@@ -9,6 +9,7 @@ sql 돌려주기
 2. cloudinary 에서 key(개인정보) 적어놓기
 
 3. 
+npm i @cloudinary/url-gen @cloudinary/react
 npm i @tiptap/react @tiptap/starter-kit @tiptap/extension-underline @tiptap/extension-link @tiptap/extension-placeholder @tiptap/extension-text-align @tiptap/extension-image
 npm i @tiptap/extension-text-style
 npm i @tiptap/extension-code-block-lowlight lowlight highlight.js
