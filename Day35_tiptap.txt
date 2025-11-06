@@ -1,0 +1,20 @@
+1. cloudinary 가입하기
+2. cloudinary 에서 key(개인정보) 적어놓기
+
+3. 
+npm i @tiptap/react @tiptap/starter-kit @tiptap/extension-underline @tiptap/extension-link @tiptap/extension-placeholder @tiptap/extension-text-align @tiptap/extension-image
+npm i @tiptap/extension-text-style
+npm i @tiptap/extension-code-block-lowlight lowlight highlight.js
+npm install @tiptap/extension-text-align
+npm install @tiptap/extension-color
+
+설치하기
+
+4. react 의 .env 파일에
+
+VITE_CLOUDINARY_CLOUD_NAME="..."
+VITE_CLOUDINARY_UPLOAD_PRESET="..."
+VITE_SERVER_API_TIPTAP_ENDPOINT="..."
+VITE_SERVER_REACT_AFTER_TIPTAP_ROUTE="/"
+
+정보 추가하기
