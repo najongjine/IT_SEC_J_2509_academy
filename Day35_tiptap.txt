@@ -1,3 +1,10 @@
+ALTER TABLE t_board
+ADD COLUMN html_content VARCHAR DEFAULT '',
+ADD COLUMN json_content jsonb;
+
+sql 돌려주기
+
+
 1. cloudinary 가입하기
 2. cloudinary 에서 key(개인정보) 적어놓기
 
