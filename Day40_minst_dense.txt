@@ -2,3 +2,6 @@ https://colab.research.google.com/drive/1IEg0ufX5DMH4MG-VEJOaCbcC0HRpbLDK?usp=sh
 
 https://colab.research.google.com/drive/1iGS9i9S-5Dtqeejci5iPLn_HJXgqc-mC?usp=sharing
 -minst v2
+
+https://itsec-react-2509.vercel.app/
+- 게시판 주소
