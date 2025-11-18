@@ -3,3 +3,6 @@ https://drive.google.com/file/d/1dGCS7cXRwTVgSZaY3H8QDhRHsCoOt46Z/view?usp=shari
 
 https://colab.research.google.com/drive/1uD6eXWh20VxgbmzxwkF7ZUzjGKAiqMoH?usp=sharing
 - 얼굴 학습 코드
+
+https://colab.research.google.com/drive/1dspYeOq5iiHhe8ew9lTNohbjFPZAewI8?usp=sharing
+- 얼굴 맞추기 테스트 코드
