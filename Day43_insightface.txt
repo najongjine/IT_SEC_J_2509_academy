@@ -1,0 +1,5 @@
+https://drive.google.com/file/d/1dGCS7cXRwTVgSZaY3H8QDhRHsCoOt46Z/view?usp=drive_link
+- 얼굴 데이터
+
+https://colab.research.google.com/drive/1uD6eXWh20VxgbmzxwkF7ZUzjGKAiqMoH?usp=sharing
+- 얼굴 학습 코드
