@@ -1,2 +1,22 @@
 git clone https://huggingface.co/spaces/WildOjisan/insightface_hf_2509
 - 클론해서 가져가시면 되요
+
+클론받고나서 폴더명을
+insightface_hf_2509_academy
+
+
+https://wildojisan-insightface-hf-2509.hf.space/predict/predict
+- 얼굴 맞추기 서버주고 예시
+
+데이터 보낼땐 form-data, key 이름은 file, type 도 file
+
+{
+    "success": false,
+    "results": [
+        {
+            "label": "Anthony_Joshua",
+            "score": 0.9838737845420837
+        }
+    ],
+    "message": ""
+}
