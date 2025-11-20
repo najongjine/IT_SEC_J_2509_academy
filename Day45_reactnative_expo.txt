@@ -36,3 +36,9 @@ Android SDK 가시고
 그리고 power shell 열고
 npm install -g eas-cli
 eas login 이건 컴퓨터에 한번만 해주시면 되요
+
+
+
+react native expo 생성 명령어
+
+npx create-expo-app@latest my_app_name
