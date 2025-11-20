@@ -1,0 +1,23 @@
+리엑트 네이티브
+
+앱개발 3대장-
+React native expo - 재일 편함
+flutter
+MAUI
+
+nodejs 하나로, 타입스크립트 하나로
+서버, 웹, 앱 다해요
+
+리엑트 네이티브 expo 는 리엑트랑 너무 비슷해요
+
+그리고 react native expo는 빌드를 지네 서버에서 해요.
+
+무료이용자 - 대기열 있음, 1달에 30회
+유료는 바로 빌드, 무제한
+
+expo 쓰면 구글, ios 출시가 더 쉽데요
+
+
+ANDROID_HOME
+C:\Users\itg\AppData\Local\Android\Sdk
+C:\Users\itg\AppData\Local\Android\Sdk\platform-tools
