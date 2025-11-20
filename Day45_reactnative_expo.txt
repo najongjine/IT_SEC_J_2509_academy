@@ -18,6 +18,21 @@ nodejs 하나로, 타입스크립트 하나로
 expo 쓰면 구글, ios 출시가 더 쉽데요
 
 
+
+https://docs.expo.dev/get-started/set-up-your-environment/?platform=android&device=simulated&mode=development-build
+- react native expo 환경설정
+
+윈도우 환경변수 설정에 요런걸 입력 하면 되는데...
 ANDROID_HOME
 C:\Users\itg\AppData\Local\Android\Sdk
 C:\Users\itg\AppData\Local\Android\Sdk\platform-tools
+
+본인 개인 컴퓨터에는 android studio -> 톱니바퀴 아이콘
+-> settings -> Language & Frameworks ->
+Android SDK 가시고
+상단에 Android SDK Location 그거 복사해서 경로 맞춰주시면 되요
+
+
+그리고 power shell 열고
+npm install -g eas-cli
+eas login 이건 컴퓨터에 한번만 해주시면 되요
