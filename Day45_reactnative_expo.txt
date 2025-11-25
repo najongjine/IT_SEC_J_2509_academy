@@ -42,3 +42,11 @@ eas login 이건 컴퓨터에 한번만 해주시면 되요
 react native expo 생성 명령어
 
 npx create-expo-app@latest my_app_name
+
+
+
+
+expo 프로젝트 처음 생성하면, 뭐가 많아서 어지러운데,
+쉽게 생각하면
+app/(tabs)/_layout.tsx 
+요놈이 react의 App.tsx
