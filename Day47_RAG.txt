@@ -56,3 +56,7 @@ hugging face hono space 에 환경변수 추가해주기
 Variables and secrets 에서 new secret 눌러서 해주면 되요
 GEMINI_API_KEY
 제미니key
+
+
+npm install @google/generative-ai @google/genai
+npm install zod
