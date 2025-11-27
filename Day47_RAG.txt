@@ -40,3 +40,10 @@ LLM 입장에서는
 "나는 개는 4발, 입, 육식, 멍멍짖고, 사람을 따르고, 달리기를 좋아한다고 배움"
 "그런데 나한테 개는 개돼지 라고 학습 시키네? 
 개라는 질문이 오면 어떻게 답변해야 되지?"
+
+
+
+
+git rm --cached .env.development
+git rm --cached .env.production
+git rm --cached .env
