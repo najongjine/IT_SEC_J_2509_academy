@@ -47,3 +47,6 @@ LLM 입장에서는
 git rm --cached .env.development
 git rm --cached .env.production
 git rm --cached .env
+
+.env 파일에
+GEMINI_API_KEY="제미니key"
