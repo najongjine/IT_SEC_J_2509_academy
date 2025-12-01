@@ -1,2 +1,28 @@
 npm install youtube-dl-exec
 npm install -D @types/node
+
+
+.env, hugging face space 에
+환경변수 입력됬나 확인
+
+DB_HOST
+ 
+DB_PORT
+ 
+DB_USERNAME
+ 
+DB_PASSWORD
+ 
+DB_NAME
+ 
+JWT_SECRET
+ 
+ENCRYPTION_KEY
+ 
+UPLOAD_DIR
+ 
+CLOUDINARY_CLOUD_NAME
+ 
+CLOUDINARY_API_KEY
+ 
+CLOUDINARY_API_SECRET
