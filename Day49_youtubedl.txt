@@ -1,5 +1,6 @@
 npm install youtube-dl-exec
 npm install -D @types/node
+npm install progress-estimator
 
 
 .env, hugging face space 에
