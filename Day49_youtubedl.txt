@@ -1,0 +1,2 @@
+npm install youtube-dl-exec
+npm install -D @types/node
