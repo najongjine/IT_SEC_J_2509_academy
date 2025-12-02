@@ -1,1 +1,6 @@
 https://github.com/najongjine/python_test/tree/main/GUIpyToExeBuild/dist
+
+
+npm i
+
+npx npm-check-updates -u
