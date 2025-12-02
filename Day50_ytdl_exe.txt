@@ -11,7 +11,7 @@ npx npm-check-updates -u
 -------react 에서 비디오 업로드 샘플-----
 import React, { useState, useRef } from 'react';
 
-const VideoUploader: React.FC = () => {
+const VideoUploaderCompo: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [uploading, setUploading] = useState<boolean>(false);
@@ -134,7 +134,7 @@ const VideoUploader: React.FC = () => {
   );
 };
 
-export default VideoUploader;
+export default VideoUploaderCompo;
 
 
 --------- react 에서 비디오 업로드 샘플 END------------
