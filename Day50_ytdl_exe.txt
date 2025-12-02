@@ -1,0 +1,1 @@
+https://github.com/najongjine/python_test/tree/main/GUIpyToExeBuild/dist
