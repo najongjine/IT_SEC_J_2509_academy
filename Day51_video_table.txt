@@ -1,0 +1,23 @@
+CREATE TABLE t_video (
+    -- 1. id: SERIAL은 이미 INT4(Integer) 타입을 포함하므로 따로 INT4를 적지 않습니다.
+    id SERIAL PRIMARY KEY,
+
+    -- 2. user_id: t_user 테이블의 id와 타입을 맞춰야 합니다 (보통 SERIAL이면 INT4)
+    user_id INT4 NOT NULL,
+
+    -- 3. public_id
+    public_id VARCHAR NOT NULL UNIQUE,
+
+    -- 4. URLs
+    hls_streaming_url TEXT NOT NULL,
+    mp4_url TEXT NOT NULL,  -- 가독성을 위해 mp4url -> mp4_url (snake_case) 권장
+
+    -- 5. created_at
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+
+    -- 6. Foreign Key 설정
+    CONSTRAINT fk_video_user 
+        FOREIGN KEY (user_id) 
+        REFERENCES t_user(id) 
+        ON DELETE CASCADE
+);
