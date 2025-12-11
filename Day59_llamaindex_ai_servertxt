@@ -4,3 +4,22 @@ VITE_API_BASE_URL=http://localhost:7860
 
 VITE_API_BASE_URL=https://wildojisan-itsec2509-hf-hono.hf.space
 VITE_LLAMAINDEX_SERVER_URL="https://wildojisan-cnn-hf-2509.hf.space/llama_index/query_stream"
+
+
+--------------------
+
+* 자기꺼 cnn_hf_2509 백업 해놓기
+
+* https://huggingface.co/spaces/WildOjisan/cnn_hf_2509/settings
+  클론하기
+
+
+*
+.git
+readme.md
+빼고 다 복사해서 자기꺼 cnn_hf_2509 에 복붙 해 버리기
+
+* huggingface git 에 push 하기
+
+* setting 에 가서 secret 에
+GOOGLE_API_KEY 추가하고 gemini api key 넣기
